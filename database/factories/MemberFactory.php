@@ -24,7 +24,7 @@ class MemberFactory extends Factory
             'gender' => 'male',
             'title' => 'mr',
             'mobile' => "09078056989",
-            'dob' => fake()->dateTimeThisCentury($max = 'now', $timezone = null),
+            'dob' => '1998-10-10 21:10:37',
             'address' => fake()->address(),
             'working_status' => 'null',
         ];

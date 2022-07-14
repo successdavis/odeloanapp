@@ -37,6 +37,10 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
+
         $member = new Member();
         $member->name = $request->name;
         $member->state = $request->state;
