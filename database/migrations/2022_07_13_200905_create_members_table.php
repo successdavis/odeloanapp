@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('email')->nullable();
             $table->string('business_name')->nullable();
-            $table->string('dob');
+            $table->dateTime('dob');
+            $table->string('serial_no')->nullable();
             $table->string('address');
             $table->string('working_status');
             $table->string('passport')->nullable();

@@ -1,19 +1,9 @@
 <?php
 
+use App\Http\Controllers\MemberController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -27,5 +17,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/members', [MemberController::class, 'index']);
+//Route::get('/members/{id}', [MemberController::class, 'show']);
+Route::get('/members/{member}', [MemberController::class, 'show']);
+Route::post('/members/register', [MemberController::class, 'store']);
 
 require __DIR__.'/auth.php';

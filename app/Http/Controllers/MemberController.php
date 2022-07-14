@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        $members = Member::limit(20)->get();
+        return Inertia::render('Member/Index', ['members' => $members]);
     }
 
     /**
@@ -35,18 +37,36 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $member = new Member();
+        $member->name = $request->name;
+        $member->state = $request->state;
+        $member->lga = $request->lga;
+        $member->gender = $request->gender;
+        $member->title = $request->title;
+        $member->mobile = $request->mobile;
+        $member->email = $request->email;
+        $member->business_name = $request->business_name;
+        $member->dob = $request->dob;
+        $member->serial_no = $request->serial_no;
+        $member->address = $request->address;
+        $member->working_status = $request->working_status;
+        $member->description = $request->description;
+
+        $member->save();
+
+        return response($member, 200);
     }
+
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Member  $member
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function show(Member $member)
     {
-        //
+        return Inertia::render('Member/Show', ['member' => $member]);
     }
 
     /**

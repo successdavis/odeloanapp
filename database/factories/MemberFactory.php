@@ -17,19 +17,16 @@ class MemberFactory extends Factory
     public function definition()
     {
         return [
-                        $table->string('name');
-            $table->string('state');
-            $table->string('lga');
-            $table->string('gender');
-            $table->string('title')->nullable();
-            $table->string('mobile');
-            $table->string('email')->nullable();
-            $table->string('business_name')->nullable();
-            $table->string('dob');
-            $table->string('address');
-            $table->string('working_status');
-            $table->string('passport')->nullable();
-            $table->string('description')->nullable();
+            'name' => fake()->name(),
+            'email' => fake()->safeEmail(),
+            'state' => 'benue',
+            'lga' => fake()->word,
+            'gender' => 'male',
+            'title' => 'mr',
+            'mobile' => "09078056989",
+            'dob' => fake()->dateTimeThisCentury($max = 'now', $timezone = null),
+            'address' => fake()->address(),
+            'working_status' => 'null',
         ];
     }
 }
