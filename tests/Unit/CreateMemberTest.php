@@ -22,11 +22,4 @@ class CreateMemberTest extends TestCase
         $this->postJson('/members/register', $this->data)
             ->assertStatus(422);
     }
-
-    /** @test */
-    public function it_requires_a_name()
-    {
-        $this->postJson('/members/register', $this->data)
-            ->assertStatus(422);
-    }
 }
