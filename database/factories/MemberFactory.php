@@ -21,11 +21,12 @@ class MemberFactory extends Factory
             'email' => fake()->safeEmail(),
             'state' => 'benue',
             'lga' => fake()->word,
-            'gender' => 'male',
-            'title' => 'mr',
+            'gender' => 'M',
+            'title' => 'Mr',
             'mobile' => "09078056989",
             'dob' => '1998-10-10 21:10:37',
-            'address' => fake()->address(),
+            'r_address' => fake()->address(),
+            'p_address' => fake()->address(),
             'working_status' => 'null',
         ];
     }

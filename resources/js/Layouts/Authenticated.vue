@@ -13,7 +13,6 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-<div>
     <Navbar></Navbar>
 
     <div class="flex">
@@ -21,10 +20,7 @@ const showingNavigationDropdown = ref(false);
             <Sidebar></Sidebar>
         </div>
         <div class="py-4 px-3 w-full">
-            <slot></slot>
+            <slot />
         </div>
     </div>
-
-</div>
-
 </template>

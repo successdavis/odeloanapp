@@ -1,35 +1,130 @@
 
 <template>
-    <Head title="Members" />
+<!--    <Head title="Members" />-->
 
-    <BreezeAuthenticatedLayout>
+
+    <div class="overflow-x-auto px-4 relative shadow-md sm:rounded-lg">
+    <div class="flex justify-between items-center py-4 bg-white dark:bg-gray-800">
         <div>
-            Welcome to Members Forum
-
-            <table class="table-fixed">
-                  <thead>
-                    <tr>
-                      <th>Full Name</th>
-                      <th>Gender</th>
-                      <th>Mobile</th>
-                      <th>Business</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(member, index) in members">
-                      <td>{{ member.name }}</td>
-                      <td>{{ member.gender }}</td>
-                      <td>{{ member.mobile }}</td>
-                      <td>{{ member.business_name }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+            <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                <span class="sr-only">Action button</span>
+                Action
+                <svg class="ml-2 w-3 h-3" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdownAction" class="z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 hidden" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(65px, 82px);">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionButton">
+                    <li>
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reward</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Promote</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Activate account</a>
+                    </li>
+                </ul>
+                <div class="py-1">
+                    <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete User</a>
+                </div>
+            </div>
         </div>
-    </BreezeAuthenticatedLayout>
+        <label for="table-search" class="sr-only">Search</label>
+        <div class="relative">
+            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+            </div>
+            <input type="text" id="table-search-users" class="block p-2 pl-10 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
+        </div>
+    </div>
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="py-3 px-6">
+                    <div class="flex items-center">
+                        Fullname
+                        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></a>
+                    </div>
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Position
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Status
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(member, index) in members" key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
+                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
+                    <div class="pl-3">
+                        <div class="text-base font-semibold">{{ member.name }}</div>
+<!--                        <div class="font-normal text-gray-500">neil.sims@flowbite.com</div>-->
+                    </div>
+                </th>
+                <td class="py-4 px-6">
+                    {{ member.mobile }}
+                </td>
+                <td class="py-4 px-6">
+                    <div class="flex items-center">
+                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
+                        {{ member.gender }}
+                    </div>
+                </td>
+                <td class="py-4 px-6">
+                    <!-- Modal toggle -->
+                    <Link :href="'/members/' + member.id" type="button" as="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View User</Link>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <nav class="flex justify-between items-center py-4" aria-label="Table navigation">
+        <span class="text-sm font-normal text-gray-500">Showing <span class="font-semibold text-gray-900">1-10</span> of <span class="font-semibold text-gray-900">1000</span></span>
+        <ul class="inline-flex items-center -space-x-px">
+            <li>
+                <a href="#" class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="sr-only">Previous</span>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+            </li>
+            <li>
+                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+            </li>
+            <li>
+                <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+            </li>
+            <li>
+                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
+            </li>
+            <li>
+                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
+            </li>
+            <li>
+                <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="sr-only">Next</span>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3'
+
 export default {
+    components: {Link},
     props: {
         members: Object,
     }

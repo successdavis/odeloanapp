@@ -39,6 +39,9 @@ class MemberController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'r_address' => 'required',
+            'email' => 'unique:members',
+            'mobile' => 'required|min:11'
         ]);
 
         $member = new Member();
@@ -52,7 +55,8 @@ class MemberController extends Controller
         $member->business_name = $request->business_name;
         $member->dob = $request->dob;
         $member->serial_no = $request->serial_no;
-        $member->address = $request->address;
+        $member->r_address = $request->r_address;
+        $member->p_address = $request->p_address;
         $member->working_status = $request->working_status;
         $member->description = $request->description;
 

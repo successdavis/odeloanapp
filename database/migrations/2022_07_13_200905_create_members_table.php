@@ -25,7 +25,8 @@ return new class extends Migration
             $table->string('business_name')->nullable();
             $table->dateTime('dob');
             $table->string('serial_no')->nullable();
-            $table->string('address');
+            $table->string('r_address');
+            $table->string('p_address');
             $table->string('working_status');
             $table->string('passport')->nullable();
             $table->string('description')->nullable();
