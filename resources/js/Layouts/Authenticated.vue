@@ -16,10 +16,10 @@ const showingNavigationDropdown = ref(false);
     <Navbar></Navbar>
 
     <div class="flex">
-        <div class="w-72" aria-label="Sidebar">
+        <div class="w-72 overflow-y-scroll" aria-label="Sidebar">
             <Sidebar></Sidebar>
         </div>
-        <div class="py-4 px-3 w-full">
+        <div class="py-4 px-3 w-full overflow-y-scroll">
             <slot />
         </div>
     </div>

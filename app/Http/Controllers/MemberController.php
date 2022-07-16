@@ -23,8 +23,7 @@ class MemberController extends Controller
             ->when($request->input('search'), function ($query, $search){
                 $query->where('name', 'like', '%' . $search . '%');
             })
-            ->limit(20)
-            ->get();
+            ->paginate(50);
 
         return Inertia::render('Member/Index', ['members' => $members]);
     }
