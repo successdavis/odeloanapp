@@ -14,7 +14,7 @@ class CreateMemberTest extends TestCase
     {
         $member = Member::factory()->make(['dob' => '1998-10-10 21:10:37']);
 
-        $response = $this->post('/members/register', $member->toArray())->json();
+        $response = $this->postJson('/members/register', $member->toArray());
 
         $this->assertDatabaseHas('members', ['name' => $member->name]);
     }

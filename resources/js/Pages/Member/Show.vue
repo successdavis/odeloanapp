@@ -40,6 +40,10 @@
                             <div class="font-semibold">Status:</div>
                             <div>{{ member.working_status }}</div>
                         </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="font-semibold">Sponsor:</div>
+                            <div>{{ sponsor.name }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,6 +58,7 @@ export default {
 
     props: {
         member: Object,
+        sponsor: '',
     },
 
     methods: {

@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('nextofkins', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('Relationship');
+            $table->string('address');
+            $table->string('mobile');
+            $table->string('gender');
+            $table->foreignId('member_id')
+              ->constrained()
+              ->onUpdate('cascade')
+              ->onDelete('cascade');
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

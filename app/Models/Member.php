@@ -9,5 +9,7 @@ class Member extends Model
 {
     use HasFactory;
 
-
+    public function nextOfKin() {
+        return $this->hasOne(Nextofkin::class);
+    }
 }

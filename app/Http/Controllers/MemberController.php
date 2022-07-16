@@ -15,8 +15,6 @@ class MemberController extends Controller
      */
     public function index(Request $request)
     {
-//        $members = Member::where('name', 'like', '%' . $request->search . '%')->get();
-
         $search = $request->search;
 
         $members = Member::query()
@@ -68,6 +66,7 @@ class MemberController extends Controller
         $member->p_address = $request->p_address;
         $member->working_status = $request->working_status;
         $member->description = $request->description;
+        $member->sponsorid = $request->sponsorid;
 
         $member->save();
 
@@ -83,7 +82,8 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        return Inertia::render('Member/Show', ['member' => $member]);
+        $sponsor = Member::find(2)->only('name');
+        return Inertia::render('Member/Show', ['member' => $member, 'sponsor' => $sponsor]);
     }
 
     /**
