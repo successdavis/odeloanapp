@@ -124,20 +124,13 @@
 import { Link } from '@inertiajs/inertia-vue3'
 import {ref, watch} from "vue";
 import {Inertia} from "@inertiajs/inertia";
+import debounce from "lodash/throttle";
 
-// defineProps({members: Object});
+
+defineProps({members: Object});
 let search = ref('');
 
-watch(search, value => {
-    Inertia.get('/members', {search: value}, {
-        preserveState: true,
-    });
-})
-
-// export default {
-//     components: {Link},
-//     props: {
-//         members: Object,
-//     }
-// }
+watch(search, debounce(function (value) {
+    Inertia.get('/members', {search: value}, {preserveState: true});
+},500));
 </script>

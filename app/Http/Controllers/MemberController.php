@@ -13,9 +13,19 @@ class MemberController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $members = Member::limit(20)->get();
+//        $members = Member::where('name', 'like', '%' . $request->search . '%')->get();
+
+        $search = $request->search;
+
+        $members = Member::query()
+            ->when($request->input('search'), function ($query, $search){
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->limit(20)
+            ->get();
+
         return Inertia::render('Member/Index', ['members' => $members]);
     }
 
