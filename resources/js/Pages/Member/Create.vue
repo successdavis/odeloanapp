@@ -8,10 +8,24 @@
             Personal Information
         </div>
         <form  @submit.prevent="form.post('/members/register')">
-            <div class="relative z-0 mt-2 mb-6 w-full group">
-                <input v-model="form.name" type="text" name="fullname" id="fullname" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
-                <label for="fullname" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Fullname</label>
-                <p v-if="form.errors.name" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.name }}.</p>
+            <div class="grid md:grid-cols-2 md:gap-6">
+                <div class="relative z-0 mt-2 mb-6 w-full group">
+                    <input v-model="form.name" type="text" name="fullname" id="fullname" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
+                    <label for="fullname" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Fullname</label>
+                    <p v-if="form.errors.name" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.name }}.</p>
+                </div>
+                <div class="relative z-10 mt-2 mb-6 w-full group">
+                    <input v-model="sponsorsearch" type="text" name="sponsorsearch" id="sponsorsearch" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
+                    <label for="sponsorsearch" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sponsor</label>
+                    <div class="absolute w-full ">
+                        <ul class="z-40 w-full text-sm font-medium text-gray-900 bg-gray-300 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <li @click="setSponsor(member)" v-for="(member, index ) in members" class="hover:bg-gray-50 cursor-pointer py-2 px-4 w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                                {{ member.name }}</li>
+                        </ul>
+                    </div>
+
+                    <p v-if="form.errors.sponsorid" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.sponsorid }}.</p>
+                </div>
             </div>
 
             <div class="grid md:grid-cols-3 md:gap-6">
@@ -116,36 +130,67 @@
                 <p v-if="form.errors.p_address" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.p_address }}.</p>
 
             </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            <button type="submit" v-show="!form.processing"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </form>
 
     </div>
 </template>
 
 <script>
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/inertia-vue3';
+import {watch, ref} from "vue";
+import { Inertia } from '@inertiajs/inertia';
+import debounce from "lodash/throttle";
 
 export default {
+    data () {
+        return {
+            sponsorsearch: '',
+            members: [],
+        }
+    },
+
     setup() {
         const form = useForm({
-            name: null,
-            email: null,
-            country: 'Nigeria',
-            state: null,
-            lga: null,
-            gender: null,
-            title: 'Choose a title',
-            mobile: null,
-            business_name: null,
-            dob: null,
-            serial_no: null,
-            r_address: null,
-            p_address: null,
-            working_status: 'Working Status',
-            description: null,
-        })
-
+                name: null,
+                email: null,
+                country: 'Nigeria',
+                state: null,
+                lga: null,
+                gender: null,
+                title: 'Choose a title',
+                mobile: null,
+                business_name: null,
+                dob: null,
+                serial_no: null,
+                r_address: null,
+                p_address: null,
+                working_status: 'Working Status',
+                description: null,
+                sponsorid: null,
+            })
         return {form}
+    },
+
+   watch: {
+        sponsorsearch: _.debounce(function(query) {
+            axios.get('/getsponsors', {params: {search: query}})
+            .then((data) => {
+                console.log(data)
+                this.members = data.data
+            })
+        }, 300)
+    },
+
+    methods: {
+        setSponsor(member) {
+            this.form.sponsorid = member.id;
+            this.sponsorsearch = member.name;
+            this.members = [];
+        }
     }
 }
+
+
+
 </script>

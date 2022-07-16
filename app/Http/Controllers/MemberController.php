@@ -33,7 +33,7 @@ class MemberController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -62,7 +62,7 @@ class MemberController extends Controller
 
         $member->save();
 
-        return response($member, 200);
+        return redirect('/members/' . $member->fresh()->id ,302);
     }
 
 

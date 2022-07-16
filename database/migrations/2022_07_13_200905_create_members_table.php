@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('working_status');
             $table->string('passport')->nullable();
             $table->string('description')->nullable();
+            $table->string('sponsorid')->nullable();
             $table->timestamps();
         });
     }
