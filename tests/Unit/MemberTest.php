@@ -10,6 +10,18 @@ use Tests\TestCase;
 class MemberTest extends TestCase
 {
     use DatabaseMigrations;
+
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
+     */
+    private mixed $member;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->member = Member::factory()->create();
+    }
+
     /** @test */
     public function ad_admin_can_view_all_member()
     {
@@ -32,10 +44,13 @@ class MemberTest extends TestCase
 
         $this->assertInstanceOf(Nextofkin::class, $member->nextOfKin);
     }
-    
+
     /** @test */
     public function it_can_add_a_next_of_king()
     {
-        
+        $nextofkin = Nextofkin::factory()->make();
+        $this->member->addNextOfKin($nextofkin->toArray());
+
+        $this->assertCount(1, $this->member->nextofkin()->get());
     }
 }

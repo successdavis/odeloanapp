@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\NextofkinController;
 use App\Http\Controllers\SponsorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +25,7 @@ Route::get('/getsponsors', [SponsorController::class, 'index']);
 Route::get('/members/register', [MemberController::class, 'create']);
 Route::get('/members/{member}', [MemberController::class, 'show']);
 Route::post('/members/register', [MemberController::class, 'store']);
+Route::post('/nextofkin/register', [NextofkinController::class, 'store']);
+Route::get('/nextofkin/create/{member}', [NextofkinController::class, 'create']);
 
 require __DIR__.'/auth.php';

@@ -82,8 +82,10 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        $sponsor = Member::find(2)->only('name');
-        return Inertia::render('Member/Show', ['member' => $member, 'sponsor' => $sponsor]);
+
+        $sponsor = $member->sponsorid ? Member::find($member->sponsorid)->only('name') : '';
+        $nextofking = $member->nextofkin;
+        return Inertia::render('Member/Show', ['member' => $member, 'sponsor' => $sponsor, 'nextofkin' => $nextofking]);
     }
 
     /**

@@ -47,23 +47,54 @@
                     </div>
                 </div>
             </div>
+
         </a>
+
+        <Link v-show="!nextofkin" :href="'/nextofkin/create/' + member.id" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Next of Kin</Link>
+        <!--        Next of Kin Information -->
+        <div class="mt-3">
+
+            <div class="mb-3 bg-gray-100 p-2 text-center font-semibold">Next of Kin</div>
+
+            <table v-if="nextofkin" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <tr class="bg-white dark:bg-gray-800">
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ nextofkin.name }}
+                    </th>
+                    <td class="py-4 px-6">
+                        {{ nextofkin.Relationship }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ nextofkin.gender }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ nextofkin.mobile }}
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ nextofkin.address }}
+                    </td>
+                </tr>
+            </table>
+        </div>
 
     </div>
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3'
 import moment from 'moment'
+import { Inertia } from '@inertiajs/inertia';
 export default {
-
+    components: {Link},
     props: {
         member: Object,
         sponsor: '',
+        nextofkin: Object,
     },
 
     methods: {
         dateTime(value) {
-          return moment(value).fromNow();
+            return moment(value).fromNow();
         },
     }
 }
