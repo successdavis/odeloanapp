@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Loan extends Model
+class Loancategory extends Model
 {
     use HasFactory;
 
-    /** @test */
-    public function category()
+    public function loans()
     {
-        return $this->belongsTo(Loancategory::class, 'loancategory_id');
+        return $this->hasMany(Loan::class);
     }
 }

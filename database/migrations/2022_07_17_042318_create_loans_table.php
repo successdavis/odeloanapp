@@ -19,9 +19,13 @@ return new class extends Migration
               ->constrained()
               ->onUpdate('cascade')
               ->onDelete('cascade');
+            $table->foreignId('loancategory_id')
+              ->constrained()
+              ->onUpdate('cascade')
+              ->onDelete('cascade');
             $table->decimal('principal_amount',8,2);
-            $table->integer('duration');
-            $table->decimal('loan_interest');
+            $table->integer('duration')->nullable();
+            $table->decimal('loan_interest')->nullable();
             $table->integer(('grace_period'))->nullable();
             $table->timestamps();
         });
