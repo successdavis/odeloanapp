@@ -59,6 +59,9 @@
                 <th scope="col" class="py-3 px-6">
                     Grace Period
                 </th>
+                <th scope="col" class="py-3 px-6">
+                    Due
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -66,34 +69,40 @@
                 <th scope="row" class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
 <!--                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">-->
                     <div class="pl-3">
-                        <div class="text-base font-semibold">Member name here</div>
+                        <div class="text-base font-semibold">{{ loan.member_name }}</div>
 <!--                        <div class="font-normal text-gray-500">neil.sims@flowbite.com</div>-->
                     </div>
                 </th>
                 <td class="py-4 px-6">
-                    {{ loan.principal_amount }}
+                    ₦ {{ loan.principal_amount }}
                 </td>
                 <td class="py-4 px-6">
                     <div class="flex items-center">
-                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
+<!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> shows a small orange circle-->
                         {{ loan.duration }}
                     </div>
                 </td>
                 <td class="py-4 px-6">
                     <div class="flex items-center">
-                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
+<!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
                         {{ loan.loan_interest }}
                     </div>
                 </td>
                 <td class="py-4 px-6">
                     <div class="flex items-center">
-                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
-                        {{ loan.grace_period }}
+<!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
+                        {{ loan.grace_duration }}
+                    </div>
+                </td>
+                <td class="py-4 px-6">
+                    <div class="flex items-center">
+<!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
+                        ₦{{ loan.due }}
                     </div>
                 </td>
                 <td class="py-4 px-6">
                     <!-- Modal toggle -->
-                    <Link :href="'/loans/view_loan_details' + loan.id" type="button" as="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View User</Link>
+                    <Link :href="'/loans/view_loan_details/' + loan.id" type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</Link>
                 </td>
             </tr>
 
@@ -101,7 +110,7 @@
     </table>
 
     <nav class="flex justify-between items-center py-4" aria-label="Table navigation">
-        <span class="text-sm font-normal text-gray-500">Showing <span class="font-semibold text-gray-900">{{loans.from}}-{{loans.to}}</span> of <span class="font-semibold text-gray-900">{{loans.total}}</span></span>
+        <span class="text-sm font-normal text-gray-500">Showing <span class="font-semibold text-gray-900">{{loans.meta.from}}-{{loans.meta.to}}</span> of <span class="font-semibold text-gray-900">{{loans.meta.total}}</span></span>
         <div class="inline-flex mt-2 xs:mt-0">
             <!-- Buttons -->
             <Link :href="loans.prev_page_url" class="inline-flex items-center py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">

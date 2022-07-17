@@ -26,7 +26,6 @@ class LoanFactory extends Factory
                 return Member::factory()->create()->id;
             },
             'principal_amount'  => 100000.00,
-            'duration'  => 5,
             'loan_interest' => 10,
             'grace_period' => 5
         ];

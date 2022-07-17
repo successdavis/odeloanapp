@@ -18,11 +18,11 @@ class LoanCategoryFactory extends Factory
     {
         return [
             'name' => 'some loan title',
-            'grace_period' => 5,
+            'grace_duration' => 5,
             'interest'  => 10,
             'interest_method' => 'Flat rate',
             'interest_period'  => 'Month',
-            'repayment_cycle'   => 'Monthly',
+            'repayment_cycle'   => 12,
         ];
     }
 }

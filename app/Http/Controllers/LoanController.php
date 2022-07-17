@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LoanCollection;
+use App\Http\Resources\LoanResource;
 use App\Models\Loan;
 use App\Models\Loancategory;
 use Illuminate\Http\Request;
@@ -24,7 +26,9 @@ class LoanController extends Controller
             })
             ->paginate(50);
 
-        return Inertia::render('Loan/Index', ['loans' => $loans]);
+//        dd($loans);
+
+        return Inertia::render('Loan/Index', ['loans' => LoanResource::collection($loans)]);
     }
 
     /**
@@ -49,9 +53,9 @@ class LoanController extends Controller
         $request->validate([
            'member_id' => 'required|exists:members,id',
             'principal_amount' => 'required',
-            'duration'  => 'required',
-            'loan_interest' => 'required',
-            'grace_period' => 'required',
+//            'duration'  => 'required',
+//            'loan_interest' => 'required',
+//            'grace_period' => 'required',
             'loancategory_id' => 'required',
         ]);
 
@@ -77,6 +81,7 @@ class LoanController extends Controller
      */
     public function show(Loan $loan)
     {
+
         return Inertia::render('Loan/Show',['loan' => $loan]);
     }
 
