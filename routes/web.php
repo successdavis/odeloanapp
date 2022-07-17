@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NextofkinController;
 use App\Http\Controllers\SponsorController;
@@ -27,5 +28,10 @@ Route::get('/members/{member}', [MemberController::class, 'show']);
 Route::post('/members/register', [MemberController::class, 'store']);
 Route::post('/nextofkin/register', [NextofkinController::class, 'store']);
 Route::get('/nextofkin/create/{member}', [NextofkinController::class, 'create']);
+
+Route::get('/loans/view_loans', [LoanController::class, 'index']);
+Route::get('/loans/create', [LoanController::class, 'create']);
+Route::get('/loans/view_loan_details/{loan}', [LoanController::class, 'show']);
+Route::post('/loans/create', [LoanController::class, 'store']);
 
 require __DIR__.'/auth.php';
