@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Loancategory;
 use App\Models\Member;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
 
          $this->call([
             MemberSeeder::class,
+            LoancategorySeeder::class,
         ]);
     }
 }

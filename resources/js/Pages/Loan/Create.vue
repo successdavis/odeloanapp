@@ -5,12 +5,17 @@
         <div class="max-w-2xl md:w-full">
             <form @submit.prevent="form.post('/loans/create')">
 
+                <label for="underline_select" class="sr-only">Loan Type</label>
+                <select v-model="form.loancategory_id" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                    <option selected="">Choose a loan type</option>
+                    <option v-for="(category, index) in loancategory" :value="category.id">{{category.name}}}</option>
+                </select>
 
-            <member-search @member="setMember" title="Member"></member-search>
+                <member-search @member="setMember" title="Member"></member-search>
                 <div class="relative z-0 mb-6 w-full group">
                     <input v-model ="form.principal_amount" type="number" name="principal_amount" id="principal_amount" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
                     <label for="principal_amount" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Principal Amount</label>
-                   <p v-if="form.errors.principal_amount" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.sponsorid }}.</p>
+                    <p v-if="form.errors.principal_amount" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.sponsorid }}.</p>
 
                 </div>
                 <div class="relative z-0 mb-6 w-full group">
@@ -46,6 +51,8 @@ import debounce from "lodash/throttle";
 import MemberSearch from "@/Components/MemberSearch.vue";
 export default {
     components: {MemberSearch},
+
+    props: {loancategory: Object},
     data () {
         return {
             sponsorsearch: '',
@@ -60,6 +67,7 @@ export default {
             duration: null,
             grace_period: null,
             loan_interest: null,
+            loancategory_id: 'Choose a loan type',
         })
         return {form}
     },

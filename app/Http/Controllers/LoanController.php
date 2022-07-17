@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loan;
+use App\Models\Loancategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -33,7 +34,8 @@ class LoanController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Loan/Create');
+        $loancategory = Loancategory::all();
+        return Inertia::render('Loan/Create', ['loancategory' => $loancategory]);
     }
 
     /**
@@ -50,6 +52,7 @@ class LoanController extends Controller
             'duration'  => 'required',
             'loan_interest' => 'required',
             'grace_period' => 'required',
+            'loancategory_id' => 'required',
         ]);
 
         $loan = new Loan();
@@ -59,6 +62,7 @@ class LoanController extends Controller
         $loan->duration = $request->duration;
         $loan->loan_interest = $request->loan_interest;
         $loan->grace_period = $request->grace_period;
+        $loan->loancategory_id = $request->loancategory_id;
 
         $loan->save();
 

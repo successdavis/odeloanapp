@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\LoancategoryController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NextofkinController;
 use App\Http\Controllers\SponsorController;
+use App\Models\Loancategory;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,5 +35,7 @@ Route::get('/loans/view_loans', [LoanController::class, 'index']);
 Route::get('/loans/create', [LoanController::class, 'create']);
 Route::get('/loans/view_loan_details/{loan}', [LoanController::class, 'show']);
 Route::post('/loans/create', [LoanController::class, 'store']);
+
+Route::get('/loancategory/add', [LoancategoryController::class, 'create']);
 
 require __DIR__.'/auth.php';

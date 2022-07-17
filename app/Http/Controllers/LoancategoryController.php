@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Loancategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class LoanCategoryController extends Controller
+class LoancategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +24,7 @@ class LoanCategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Loancategory/create');
+        return Inertia::render('Loancategory/Create');
     }
 
     /**
@@ -42,10 +41,10 @@ class LoanCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Loancategory  $loanCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Loancategory $loanCategory)
+    public function show($id)
     {
         //
     }
@@ -53,10 +52,10 @@ class LoanCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Loancategory  $loanCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Loancategory $loanCategory)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +64,10 @@ class LoanCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Loancategory  $loanCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Loancategory $loanCategory)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +75,10 @@ class LoanCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Loancategory  $loanCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Loancategory $loanCategory)
+    public function destroy($id)
     {
         //
     }
