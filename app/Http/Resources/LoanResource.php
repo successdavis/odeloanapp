@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LoanResource extends JsonResource
@@ -24,6 +25,9 @@ class LoanResource extends JsonResource
             'due' => number_format($this->totalDue(),2),
             'paid' => number_format($this->totolPayment(),2),
             'balance' => number_format($this->totalBalance(),2),
+            'release' => Carbon::parse($this->release_date)->toDayDateTimeString(),
+            'maturity' => $this->getMaturity(),
+            'interest_maturity' => number_format($this->getInterestMaturity(),2),
         ];
     }
 }

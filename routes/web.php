@@ -4,7 +4,9 @@ use App\Http\Controllers\LoancategoryController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NextofkinController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\UserController;
 use App\Models\Loancategory;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/getusers', [UserController::class, 'index']);
+
 Route::get('/members', [MemberController::class, 'index']);
 Route::get('/getsponsors', [SponsorController::class, 'index']);
 Route::get('/members/register', [MemberController::class, 'create']);
@@ -37,5 +41,7 @@ Route::get('/loans/view_loan_details/{loan}', [LoanController::class, 'show']);
 Route::post('/loans/create', [LoanController::class, 'store']);
 
 Route::get('/loancategory/add', [LoancategoryController::class, 'create']);
+
+Route::get('/repayment/{loan}', [PaymentController::class, 'create']);
 
 require __DIR__.'/auth.php';

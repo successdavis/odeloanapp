@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\LoanCollection;
 use App\Http\Resources\LoanResource;
+use App\Http\Resources\PaymentResource;
 use App\Models\Loan;
 use App\Models\Loancategory;
 use Illuminate\Http\Request;
@@ -25,8 +26,6 @@ class LoanController extends Controller
                 $query->where('principal_amount', 'like', '%' . $search . '%');
             })
             ->paginate(50);
-
-//        dd($loans);
 
         return Inertia::render('Loan/Index', ['loans' => LoanResource::collection($loans)]);
     }
@@ -61,12 +60,15 @@ class LoanController extends Controller
 
         $loan = new Loan();
 
-        $loan->member_id = $request->member_id;
+        $loan->member_id        = $request->member_id;
         $loan->principal_amount = $request->principal_amount;
-        $loan->duration = $request->duration;
-        $loan->loan_interest = $request->loan_interest;
-        $loan->grace_period = $request->grace_period;
-        $loan->loancategory_id = $request->loancategory_id;
+        $loan->duration         = $request->duration;
+        $loan->loan_interest    = $request->loan_interest;
+        $loan->grace_period     = $request->grace_period;
+        $loan->loancategory_id  = $request->loancategory_id;
+        $loan->maturity         = $request->maturity;
+        $loan->release_date     = $request->release_date;
+        $loan->payment_date     = $request->payment_date;
 
         $loan->save();
 
@@ -81,8 +83,9 @@ class LoanController extends Controller
      */
     public function show(Loan $loan)
     {
-
-        return Inertia::render('Loan/Show',['loan' => $loan]);
+        $member = $loan->owner;
+        $payments = $loan->payments;
+        return Inertia::render('Loan/Show',['loan' => new LoanResource($loan), 'member' => $member, 'payments' => PaymentResource::collection($payments)]);
     }
 
     /**

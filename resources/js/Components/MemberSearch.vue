@@ -16,7 +16,10 @@ import {watch, ref} from "vue";
 import { Inertia } from '@inertiajs/inertia';
 import debounce from "lodash/throttle";
 export default {
-    props: {title: String},
+    props: {
+        title: String,
+        url: String
+    },
     data () {
         return {
             search: '',
@@ -25,7 +28,7 @@ export default {
     },
      watch: {
         search: _.debounce(function(query) {
-            axios.get('/getsponsors', {params: {search: query}})
+            axios.get(this.url, {params: {search: query}})
             .then((data) => {
                 this.members = data.data
             })

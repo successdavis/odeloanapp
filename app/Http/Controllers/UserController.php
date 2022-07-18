@@ -2,32 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\LoanResource;
-use App\Models\Loan;
-use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
-class PaymentController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index (Request $request) {
+        if(!$request->search) {return [];};
+        return User::where('name', 'like', '%' . $request->search . '%')->get();
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\Response
      */
-    public function create(Loan $loan)
+    public function create()
     {
-        return Inertia::render('Payment/Create', ['loan' => new LoanResource($loan)]);
+        //
     }
 
     /**
@@ -44,10 +41,10 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show($id)
     {
         //
     }
@@ -55,10 +52,10 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit($id)
     {
         //
     }
@@ -67,10 +64,10 @@ class PaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -78,10 +75,10 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy($id)
     {
         //
     }
