@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Loan;
 use App\Models\Loancategory;
+use App\Models\Payment;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,10 +28,21 @@ class LoancategorySeeder extends Seeder
             'duration'          => '12',
             'duration_period'          => 'Months',
         ]);
-        Loan::factory()->create([
+        $loan = Loan::factory()->create([
            'loancategory_id' => $category->id,
            'member_id' => 1,
         ]);
-        Loancategory::factory(2)->create();
+
+        $payment = Payment::factory(3)->make([
+                'billable_id' => null,
+                'billable_type' => null
+            ]
+        );
+
+        foreach($payment as $pay) {
+            $loan->addPayment($pay->toArray());
+        }
+
+        Loancategory::factory()->create();
     }
 }

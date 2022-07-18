@@ -56,11 +56,17 @@
                 <th scope="col" class="py-3 px-6">
                     Loan Interest
                 </th>
-                <th scope="col" class="py-3 px-6">
-                    Grace Period
-                </th>
+<!--                <th scope="col" class="py-3 px-6">-->
+<!--                    Grace Period-->
+<!--                </th>-->
                 <th scope="col" class="py-3 px-6">
                     Due
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Paid
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Balance
                 </th>
             </tr>
         </thead>
@@ -69,14 +75,14 @@
                 <th scope="row" class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
 <!--                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">-->
                     <div class="pl-3">
-                        <div class="text-base font-semibold">{{ loan.member_name }}</div>
+                        <div class="text-sm	 font-semibold">{{ loan.member_name }}</div>
 <!--                        <div class="font-normal text-gray-500">neil.sims@flowbite.com</div>-->
                     </div>
                 </th>
-                <td class="py-4 px-6">
+                <td class="text-sm py-4 px-6">
                     ₦ {{ loan.principal_amount }}
                 </td>
-                <td class="py-4 px-6">
+                <td class="text-xs py-4 px-6">
                     <div class="flex items-center">
 <!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> shows a small orange circle-->
                         {{ loan.duration }}
@@ -88,16 +94,27 @@
                         {{ loan.loan_interest }}
                     </div>
                 </td>
+<!--                <td class="py-4 px-6">-->
+<!--                    <div class="flex items-center">-->
+<!--                        {{ loan.grace_duration }}-->
+<!--                    </div>-->
+<!--                </td>-->
                 <td class="py-4 px-6">
                     <div class="flex items-center">
 <!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
-                        {{ loan.grace_duration }}
+                        ₦{{ loan.due }}
                     </div>
                 </td>
                 <td class="py-4 px-6">
                     <div class="flex items-center">
 <!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
-                        ₦{{ loan.due }}
+                        ₦{{ loan.paid }}
+                    </div>
+                </td>
+                <td class="py-4 px-6">
+                    <div class="flex items-center">
+<!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
+                        ₦{{ loan.balance }}
                     </div>
                 </td>
                 <td class="py-4 px-6">

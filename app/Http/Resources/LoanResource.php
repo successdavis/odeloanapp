@@ -22,6 +22,8 @@ class LoanResource extends JsonResource
             'loan_interest' => number_format($this->getInterest()) . '%/' . $this->category->interest_period,
             'grace_duration' => $this->category->grace_duration . ' ' . $this->category->duration_period,
             'due' => number_format($this->totalDue(),2),
+            'paid' => number_format($this->totolPayment(),2),
+            'balance' => number_format($this->totalBalance(),2),
         ];
     }
 }

@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Billable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Loan extends Model
 {
     use HasFactory;
+    use Billable;
+
 
     private $repayment_cycle = [
             'Daily' => 30,
@@ -51,5 +54,10 @@ class Loan extends Model
         $totalInterest = ($percentage / 100) * $this->principal_amount * $duration;
 
         return $totalInterest + $this->principal_amount;
+    }
+
+    public function totalBalance()
+    {
+        return $this->totalDue() - $this->totolPayment();
     }
 }
