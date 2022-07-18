@@ -85,7 +85,13 @@ class LoanController extends Controller
     {
         $member = $loan->owner;
         $payments = $loan->payments;
-        return Inertia::render('Loan/Show',['loan' => new LoanResource($loan), 'member' => $member, 'payments' => PaymentResource::collection($payments)]);
+        $guarantors = $loan->guarantors()->get();
+        return Inertia::render('Loan/Show',[
+            'loan' => new LoanResource($loan),
+            'member' => $member,
+            'payments' => PaymentResource::collection($payments),
+            'guarantors' => $guarantors
+        ]);
     }
 
     /**

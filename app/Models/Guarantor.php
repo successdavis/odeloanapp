@@ -9,8 +9,8 @@ class Guarantor extends Model
 {
     use HasFactory;
 
-    public function member()
+    public function loan()
     {
-        $this->belongsTo(Member::class);
+       return $this->belongsTo(Loan::class);
     }
 }

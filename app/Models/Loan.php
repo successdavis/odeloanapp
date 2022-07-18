@@ -78,4 +78,9 @@ class Loan extends Model
 
         return Carbon::parse($this->maturity ?: $maturity)->toDayDateTimeString(); ;
     }
+
+    public function guarantors()
+    {
+        return $this->hasMany(Guarantor::class);
+    }
 }

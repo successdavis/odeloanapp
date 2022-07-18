@@ -127,6 +127,67 @@
         </tbody>
     </table>
 
+        <div class="text-center bg-blue-200 py-2 mb-0 font-semibold text-xl ">Guarantors</div>
+
+        <Link :href="'/guarantor/' + loan.data.id + '/add'" type="button" class="mt-3 text-white bg-slate-400 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Guarantor</Link>
+
+<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="py-3 px-6">
+                    Name
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Address
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Mobile
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Gender
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Occupation
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Working Address
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(guarantor, index) in guarantors" :key="index" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ guarantor.name }}
+                </th>
+                <td class="py-4 px-6">
+                    {{ guarantor.address }}
+                </td>
+                <td class="py-4 px-6">
+                    {{ guarantor.mobile }}
+                </td>
+                <td class="py-4 px-6">
+                    {{ guarantor.gender }}
+                </td>
+                <td class="py-4 px-6">
+                    {{ guarantor.occupation }}
+                </td>
+                <td class="py-4 px-6">
+                    {{ guarantor.working_address }}
+                </td>
+                <td class="py-4 px-6">
+                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
 
     <div class="border-b border-gray-200 dark:border-gray-700 w-full">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -141,8 +202,6 @@
 
     <div>
         <Link :href="'/repayment/' + loan.data.id" type="button" class="mt-3 text-white bg-slate-400 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Repayment</Link>
-        <Link :href="'/guarantor/' + loan.data.id + '/add'" type="button" class="mt-3 text-white bg-slate-400 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Guarantor</Link>
-
 
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -214,19 +273,21 @@
         </div>
     </div>
 
-
 </template>
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3'
 import moment from 'moment'
 import { Inertia } from '@inertiajs/inertia';
+import Tabs from "@/Components/Tabs.vue";
+import Tab from "@/Components/Tab.vue";
 export default {
-    components: {Link},
+    components: {Tab, Tabs, Link},
     props: {
         loan: Object,
         member: Object,
-        payments: Object
+        payments: Object,
+        guarantors: Object
     },
 
     methods: {
