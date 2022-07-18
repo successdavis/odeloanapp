@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\LoancategoryController;
 use App\Http\Controllers\LoanController;
@@ -33,8 +34,12 @@ Route::get('/getsponsors', [SponsorController::class, 'index']);
 Route::get('/members/register', [MemberController::class, 'create']);
 Route::get('/members/{member}', [MemberController::class, 'show']);
 Route::post('/members/register', [MemberController::class, 'store']);
+
+Route::post('/memberpassport/{member}/avatar', [AvatarController::class, 'store']);
+
 Route::post('/nextofkin/register', [NextofkinController::class, 'store']);
 Route::get('/nextofkin/create/{member}', [NextofkinController::class, 'create']);
+
 
 Route::get('/loans/view_loans', [LoanController::class, 'index']);
 Route::get('/loans/create', [LoanController::class, 'create']);

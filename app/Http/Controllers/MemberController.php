@@ -13,6 +13,7 @@ class MemberController extends Controller
      *
      * @return \Inertia\Response
      */
+
     public function index(Request $request)
     {
         $search = $request->search;
