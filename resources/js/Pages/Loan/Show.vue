@@ -141,6 +141,7 @@
 
     <div>
         <Link :href="'/repayment/' + loan.data.id" type="button" class="mt-3 text-white bg-slate-400 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Repayment</Link>
+        <Link :href="'/guarantor/' + loan.data.id + '/add'" type="button" class="mt-3 text-white bg-slate-400 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Guarantor</Link>
 
 
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">

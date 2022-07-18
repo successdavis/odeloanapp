@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guarantor;
+use App\Models\Loan;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class GuarantorController extends Controller
 {
@@ -20,22 +22,44 @@ class GuarantorController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
-    public function create()
+    public function create(Loan $loan)
     {
-        //
+        return Inertia::render('Guarantor/Create', ['loan' => $loan]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Loan $loan, Request $request)
     {
-        //
+        $request->validate([
+            'name'  => 'required',
+            'address' => 'required',
+            'mobile' => 'required',
+            'gender' => 'required',
+            'occupation' => 'required',
+            'working_address' => 'required',
+            'loan_id' => 'required',
+        ]);
+
+        $guarantor = new Guarantor();
+        $guarantor->name = $request->name;
+        $guarantor->address = $request->address;
+        $guarantor->mobile = $request->mobile;
+        $guarantor->gender = $request->gender;
+        $guarantor->occupation = $request->occupation;
+        $guarantor->working_address = $request->working_address;
+        $guarantor->loan_id = $request->loan_id;
+
+        $guarantor->save();
+
+        return redirect('/loans/view_loan_details/' . $loan->id ,302);
+
     }
 
     /**

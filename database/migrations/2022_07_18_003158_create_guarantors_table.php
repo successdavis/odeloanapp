@@ -16,6 +16,15 @@ return new class extends Migration
         Schema::create('guarantors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('address');
+            $table->string('mobile');
+            $table->string('gender');
+            $table->string('occupation')->nullable();
+            $table->string('working_address')->nullable();
+            $table->foreignId('loan_id')
+              ->constrained()
+              ->onUpdate('cascade')
+              ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -14,12 +14,14 @@ trait Billable
 
     public function addPayment($payment)
     {
+        $bytes = random_bytes(8);
+
         return $this->payments()->save(
             new Payment([
                 'amount'    => $payment['amount'],
                 'user_id'   =>  1,
                 'payment_method'    => $payment['payment_method'],
-                'transaction_ref'   => $payment['transaction_ref'],
+                'transaction_ref'   => bin2hex($bytes),
             ])
         );
     }

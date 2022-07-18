@@ -21,4 +21,8 @@ class Member extends Model
        return $nextofkin;
     }
 
+    public function guarantor()
+    {
+        $this->hasMany(Guarantor::class);
+    }
 }

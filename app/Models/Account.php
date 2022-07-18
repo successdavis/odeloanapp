@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Guarantor extends Model
+class Account extends Model
 {
     use HasFactory;
-
-    public function member()
-    {
-        $this->belongsTo(Member::class);
-    }
 }

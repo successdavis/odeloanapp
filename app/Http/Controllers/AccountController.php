@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\LoanResource;
-use App\Models\Loan;
-use App\Models\Payment;
+use App\Models\Account;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
-class PaymentController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,32 +20,31 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\Response
      */
-    public function create(Loan $loan)
+    public function create()
     {
-        return Inertia::render('Payment/Create', ['loan' => new LoanResource($loan)]);
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\Response
      */
-    public function store(Loan $loan, Request $request)
+    public function store(Request $request)
     {
-        $loan->addPayment($request->all());
-        return redirect('/loans/view_loan_details/' . $loan->id);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show(Account $account)
     {
         //
     }
@@ -56,10 +52,10 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit(Account $account)
     {
         //
     }
@@ -68,10 +64,10 @@ class PaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, Account $account)
     {
         //
     }
@@ -79,10 +75,10 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy(Account $account)
     {
         //
     }
