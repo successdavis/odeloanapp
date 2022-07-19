@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\LoanResource;
 use App\Models\Loan;
-use App\Models\Payment;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
-class PaymentController extends Controller
+class LoanApplicationStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,36 +20,33 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Inertia\Response
+     * @return \Illuminate\Http\Response
      */
-    public function create(Loan $loan)
+    public function create()
     {
-        return Inertia::render('Payment/Create', ['loan' => new LoanResource($loan)]);
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Loan $loan, Request $request)
     {
-        if ($loan->status !== 1) {
-            return response('loan not yet approved', 403);
-        }
+        $loan->approveLoan();
 
-        $loan->addPayment($request->all());
-        return redirect('/loans/view_loan_details/' . $loan->id);
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show($id)
     {
         //
     }
@@ -60,10 +54,10 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit($id)
     {
         //
     }
@@ -72,10 +66,10 @@ class PaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -83,11 +77,13 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
+     * @param Loan $loan
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Payment $payment)
+    public function destroy(Loan $loan)
     {
-        //
+        $loan->rejectLoan();
+
+        return redirect()->back();
     }
 }

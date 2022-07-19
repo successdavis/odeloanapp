@@ -28,6 +28,7 @@ class LoanResource extends JsonResource
             'release' => Carbon::parse($this->release_date)->toDayDateTimeString(),
             'maturity' => $this->getMaturity(),
             'interest_maturity' => number_format($this->getInterestMaturity(),2),
+            'status' => $this->status,
         ];
     }
 }

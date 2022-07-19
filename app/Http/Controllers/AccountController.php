@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PaymentResource;
 use App\Models\Account;
 use App\Models\Member;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,11 +14,12 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        $totalSaving = Payment::where('billable_type', 'App\Models\Account')->sum('amount');
+        return Inertia::render('Saving/Index', ['totalSaving' => number_format($totalSaving, 2)]);
     }
 
     /**

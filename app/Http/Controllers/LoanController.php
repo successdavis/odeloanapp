@@ -21,11 +21,7 @@ class LoanController extends Controller
     {
         $search = $request->search;
 
-        $loans = Loan::query()
-            ->when($request->input('search'), function ($query, $search){
-                $query->where('principal_amount', 'like', '%' . $search . '%');
-            })
-            ->paginate(50);
+        $loans = Loan::whereNot('status', 0)->paginate(50);
 
         return Inertia::render('Loan/Index', ['loans' => LoanResource::collection($loans)]);
     }
@@ -126,5 +122,23 @@ class LoanController extends Controller
     public function destroy(Loan $loan)
     {
         //
+    }
+
+    public function short()
+    {
+        $loans = Loan::where('loancategory_id', '1')->paginate(50);
+        return Inertia::render('Loan/Index', ['loans' => LoanResource::collection($loans)]);
+    }
+
+    public function long()
+    {
+        $loans = Loan::where('loancategory_id', '2')->paginate(50);
+        return Inertia::render('Loan/Index', ['loans' => LoanResource::collection($loans)]);
+    }
+
+    public function pending()
+    {
+        $loans = Loan::where('status', '0')->paginate(50);
+        return Inertia::render('Loan/Index', ['loans' => LoanResource::collection($loans)]);
     }
 }

@@ -74,13 +74,32 @@ class Loan extends Model
 
     public function getMaturity()
     {
-        $maturity = Carbon::parse($this->release_date)->add($this->getDuration(), $this->getDurationPeriod() );
+        $date
 
-        return Carbon::parse($this->maturity ?: $maturity)->toDayDateTimeString(); ;
+        if ($this->loancategory_id === 1) {
+            $maturity = Carbon::parse($this->release_date)->add('Week', 2 );
+        }else {
+            $maturity = Carbon::parse($this->release_date)->add('Year', 1 );
+        }
+
+        return Carbon::parse($this->maturity ?: $maturity)->toDayDateTimeString();
     }
+
 
     public function guarantors()
     {
         return $this->hasMany(Guarantor::class);
+    }
+
+    public function approveLoan()
+    {
+        $this->status = 1;
+        return $this->save();
+    }
+
+    public function rejectLoan()
+    {
+        $this->status = 3;
+        return $this->save();
     }
 }

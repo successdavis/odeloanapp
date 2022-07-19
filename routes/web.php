@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AccountInterestController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\GuarantorController;
+use App\Http\Controllers\LoanApplicationStatusController;
 use App\Http\Controllers\LoancategoryController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
@@ -11,19 +12,13 @@ use App\Http\Controllers\NextofkinController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use App\Models\Loancategory;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [WelcomeController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -44,9 +39,17 @@ Route::get('/nextofkin/create/{member}', [NextofkinController::class, 'create'])
 
 
 Route::get('/loans/view_loans', [LoanController::class, 'index']);
+Route::get('/loans/view-long-term', [LoanController::class, 'long']);
+Route::get('/loans/pending_loans', [LoanController::class, 'pending']);
+
+Route::get('/loans/short-long-term', [LoanController::class, 'short']);
+
 Route::get('/loans/create', [LoanController::class, 'create']);
 Route::get('/loans/view_loan_details/{loan}', [LoanController::class, 'show']);
 Route::post('/loans/create', [LoanController::class, 'store']);
+
+Route::get('/loan/{loan}/approve-loan', [LoanApplicationStatusController::class, 'store']);
+Route::get('/loan/{loan}/reject-loan', [LoanApplicationStatusController::class, 'destroy']);
 
 Route::get('/loancategory/add', [LoancategoryController::class, 'create']);
 
@@ -63,6 +66,7 @@ Route::get('/account/{account}/addtransaction', [AccountController::class, 'crea
 Route::post('/account/{account}/savetransaction', [AccountController::class, 'store']);
 Route::get('/account/{member}/view-account', [AccountController::class, 'show']);
 Route::post('/account/{account}/set-interest', [AccountInterestController::class, 'store']);
+Route::get('/savings/accounts', [AccountController::class, 'index']);
 
 
 require __DIR__.'/auth.php';
