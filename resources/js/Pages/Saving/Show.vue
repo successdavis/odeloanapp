@@ -31,7 +31,9 @@
             <div class="flex justify-center items-center">
                 <div>
                     <p class="text-2xl">Interest</p>
-                    <div class="text-4xl">{{ account.interest }}%</div>
+                    <input @change="setInterest"  type="text" v-model="form.interest">
+<!--                    <div class="text-4xl">{{ account.interest }}%</div>-->
+                    <p class="text-xs">Change Value</p>
                 </div>
             </div>
             <div class="flex justify-center items-center">
@@ -117,6 +119,7 @@
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {Link},
@@ -126,6 +129,27 @@ export default {
         totalSaving: String,
         totalInterest: String,
         grandTotal: String,
+    },
+
+    data() {
+        return {
+            editInterest: false
+        }
+    },
+
+    setup(props) {
+        const form = useForm({
+            interest: props.account.interest,
+        })
+        return {form}
+    },
+
+    methods: {
+        setInterest(){
+            this.form.post('/account/' + this.account.id + '/set-interest', {
+                preserveScroll: true,
+            })
+        }
     }
 }
 </script>
