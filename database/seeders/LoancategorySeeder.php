@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Loan;
 use App\Models\Loancategory;
 use App\Models\Payment;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,15 +20,15 @@ class LoancategorySeeder extends Seeder
     public function run()
     {
         $category = Loancategory::factory()->create([
-            'name'               => 'Long Term Loan',
-            'grace_duration'       => 5,
+            'name'               => 'Short Term Loan (Fire Matching)',
+            'grace_duration'       => 0,
             'interest'          => 10,
             'interest_method'   => 'Flat rate',
-            'repayment_cycle'   => 12,
+            'repayment_cycle'   => 14,
             'fine'              => 10,
-            'flat_fee'          => 2000,
-            'duration'          => '12',
-            'duration_period'          => 'Months',
+            'flat_fee'          => 0,
+            'duration'          => '2',
+            'duration_period'          => 'Weeks',
         ]);
         $loan = Loan::factory()->create([
            'loancategory_id' => $category->id,
@@ -37,7 +38,10 @@ class LoancategorySeeder extends Seeder
 
         $payment = Payment::factory(3)->make([
                 'billable_id' => null,
-                'billable_type' => null
+                'billable_type' => null,
+                'user_id' => function() {
+                    return User::factory()->create()->id;
+                }
             ]
         );
 

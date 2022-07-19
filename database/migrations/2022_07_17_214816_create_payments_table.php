@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('billable_id');
             $table->string('billable_type');
             $table->string('payment_method'); //
+            $table->date('payment_date')->nullable(); //
             $table->string('transaction_ref')->nullable();
             $table->timestamps();
         });

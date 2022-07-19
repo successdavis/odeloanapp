@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\LoancategoryController;
@@ -55,6 +56,11 @@ Route::get('/repayment/{loan}', [PaymentController::class, 'create']);
 
 Route::get('/guarantor/{loan}/add', [GuarantorController::class, 'create']);
 Route::post('/guarantor/{loan}/register', [GuarantorController::class, 'store']);
+
+
+Route::get('/account/{account}/addtransaction', [AccountController::class, 'create']);
+Route::post('/account/{account}/savetransaction', [AccountController::class, 'store']);
+Route::get('/account/{member}/view-account', [AccountController::class, 'show']);
 
 
 require __DIR__.'/auth.php';

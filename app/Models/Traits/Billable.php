@@ -9,7 +9,7 @@ trait Billable
 {
     public function payments ()
     {
-        return $this->morphMany(Payment::class, 'billable');
+        return $this->morphMany(Payment::class, 'billable')->latest();
     }
 
     public function addPayment($payment)
@@ -19,8 +19,9 @@ trait Billable
         return $this->payments()->save(
             new Payment([
                 'amount'    => $payment['amount'],
-                'user_id'   =>  1,
+                'user_id'   =>  $payment['user_id'],
                 'payment_method'    => $payment['payment_method'],
+                'payment_date'    => $payment['payment_date'],
                 'transaction_ref'   => bin2hex($bytes),
             ])
         );

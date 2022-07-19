@@ -23,7 +23,8 @@ class PaymentFactory extends Factory
                 User::factory()->create()->id;
             },
             'payment_method'    => 'Cash',
-            'transaction_ref'   => '34343'
+            'transaction_ref'   => '34343',
+            'payment_date'   => null
         ];
     }
 }

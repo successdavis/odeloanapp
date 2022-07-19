@@ -60,7 +60,7 @@
         <tbody>
             <tr v-for="(member, index) in members.data" key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <th scope="row" class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
-                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
+                    <img class="w-10 h-10 rounded-full" :src="member.avatar_path" alt="Jese image">
                     <div class="pl-3">
                         <div class="text-base font-semibold">{{ member.name }}</div>
 <!--                        <div class="font-normal text-gray-500">neil.sims@flowbite.com</div>-->

@@ -17,7 +17,7 @@ class PaymentResource extends JsonResource
     {
         return [
             'id'  => $this->id,
-            'payment_date'  => Carbon::parse($this->release_date)->toDayDateTimeString(),
+            'payment_date'  => Carbon::parse($this->payment_date ?: $this->created_at)->toDayDateTimeString(),
             'collected_by'  => $this->user->name,
             'method'        => $this->payment_method,
             'amount'        => $this->amount,
