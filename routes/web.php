@@ -3,6 +3,8 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AccountInterestController;
 use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\FineController;
+use App\Http\Controllers\FinePaymentController;
 use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\LoanApplicationStatusController;
 use App\Http\Controllers\LoancategoryController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NextofkinController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -67,6 +70,15 @@ Route::post('/account/{account}/savetransaction', [AccountController::class, 'st
 Route::get('/account/{member}/view-account', [AccountController::class, 'show']);
 Route::post('/account/{account}/set-interest', [AccountInterestController::class, 'store']);
 Route::get('/savings/accounts', [AccountController::class, 'index']);
+
+Route::get('/create-fine/{member}', [FineController::class, 'create']);
+Route::post('/fine/create-fine/{member}', [FineController::class, 'store']);
+Route::get('/fines', [FineController::class, 'index']);
+Route::get('/fine/member-fine/{member}', [FineController::class, 'show']);
+Route::get('/fine/{fine}/pay', [FinePaymentController::class, 'store']);
+
+
+Route::get('/today-report', [ReportController::class, 'index']);
 
 
 require __DIR__.'/auth.php';

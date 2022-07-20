@@ -12,6 +12,10 @@ class Loan extends Model
     use HasFactory;
     use Billable;
 
+    protected $dates = [
+        'release_date',
+        'payment_date'
+    ];
 
     private $repayment_cycle = [
             'Daily' => 30,
@@ -74,15 +78,34 @@ class Loan extends Model
 
     public function getMaturity()
     {
-        $date
-
+        if($this->getRepaymentCycleStartDate() === null) {
+            return null;
+        }
         if ($this->loancategory_id === 1) {
-            $maturity = Carbon::parse($this->release_date)->add('Week', 2 );
+            $maturity = Carbon::parse($this->getRepaymentCycleStartDate())->add('Week', 2 );
         }else {
-            $maturity = Carbon::parse($this->release_date)->add('Year', 1 );
+            $maturity = Carbon::parse($this->getRepaymentCycleStartDate())->add('Year', 1 );
         }
 
-        return Carbon::parse($this->maturity ?: $maturity)->toDayDateTimeString();
+        return Carbon::parse($this->maturity ?: $maturity)->format('d/m/Y');
+    }
+
+//    return the date the loan will start to run, it defaults to the date the loan was released but return the payment date if set by admin
+    public function getRepaymentCycleStartDate()
+    {
+        return $this->release_date ?: $this->payment_date;
+    }
+
+    public function getLongTermNextPayment()
+    {
+        if ($this->payments()->count() <= 4) {
+            $balance = $this->totalDue() - $this->payments()->sum('amount');
+
+            $accumulated_depreciation = $balance * ($this->category->interest / 100);
+
+            return $accumulated_depreciation;
+        }
+        return 2000;
     }
 
 
@@ -94,12 +117,77 @@ class Loan extends Model
     public function approveLoan()
     {
         $this->status = 1;
+        $this->release_date = Carbon::now();
+        $this->makeUpFrontPayment();
+
         return $this->save();
+    }
+
+    public function makeUpFrontPayment()
+    {
+        return $this->addPayment([
+            'amount' => $this->getInterestMaturity(),
+            'user_id' => 1,
+            'payment_method' => 'Interest Deduction',
+            'payment_date' => null,
+        ]);
     }
 
     public function rejectLoan()
     {
         $this->status = 3;
         return $this->save();
+    }
+
+    static public function shortTermInterestTotal()
+    {
+        $principal_amount = self::where('loancategory_id', 1)->whereIn('status', [1,2])->sum('principal_amount');
+
+        $interest = Loancategory::first()->interest;
+
+        return ($interest / 100 ) * $principal_amount;
+    }
+
+    static public function longTermInterestTotal()
+    {
+        $principal_amount = self::where('loancategory_id', 2)->whereIn('status', [1,2])->sum('principal_amount');
+
+        $interest = Loancategory::first()->interest;
+
+        return ($interest / 100 ) * $principal_amount;
+    }
+
+    static public function totalInterestFromAllLoan()
+    {
+        return self::shortTermInterestTotal() + self::longTermInterestTotal();
+    }
+
+    static public function todayShortTermInterestTotal()
+    {
+        $principal_amount = self::where('loancategory_id', 1)
+            ->whereIn('status', [1,2])
+            ->whereDate('created_at', Carbon::today())
+            ->sum('principal_amount');
+
+        $interest = Loancategory::first()->interest;
+
+        return ($interest / 100 ) * $principal_amount;
+    }
+
+    static public function todayLongTermInterestTotal()
+    {
+        $principal_amount = self::where('loancategory_id', 2)
+            ->whereIn('status', [1,2])
+            ->whereDate('created_at', Carbon::today())
+            ->sum('principal_amount');
+
+        $interest = Loancategory::first()->interest;
+
+        return ($interest / 100 ) * $principal_amount;
+    }
+
+    static public function todayTotalInterestFromAllLoan(): float|int
+    {
+        return self::todayShortTermInterestTotal() + self::todayLongTermInterestTotal();
     }
 }

@@ -130,9 +130,28 @@
                 </div>
             </td>
         </tr>
-
         </tbody>
     </table>
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+            <th scope="col" class="py-3 px-2">
+                Next Payment
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-if="loan.data.loancategory_id === 2" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td class="py-4 px-2">
+                <div class="flex items-center">
+                    <!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
+                    Min of: ₦{{ nextpayment }}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 
     <div class="text-center bg-blue-200 py-2 mb-0 font-semibold text-xl flex justify-center ">
         <span>Guarantors </span>
@@ -247,7 +266,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(payment, index) in payments.data" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+<!--                <span v-for="(val,key,index) of person">-->
+<!--                  key: {{key}}, val: {{val}}, index: {{index}}-->
+<!--                  <span v-if="index != Object.keys(person).length - 1">, </span>-->
+<!--                </span>-->
+
+                <tr :class="index === Object.keys(payments.data).length -1 ? 'bg-cyan-400 ' : ''" v-for="(payment,index) of payments.data"  :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ payment.payment_date }}
                     </th>
@@ -261,7 +285,8 @@
                         {{ payment.amount }}
                     </td>
                     <td class="py-4 px-6 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <div v-if="index === Object.keys(payments.data).length -1 "> upfront</div>
+<!--                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>-->
                     </td>
                 </tr>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -301,7 +326,8 @@ export default {
         loan: Object,
         member: Object,
         payments: Object,
-        guarantors: Object
+        guarantors: Object,
+        nextpayment: String
     },
 
     data () {

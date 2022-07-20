@@ -25,7 +25,7 @@ class LoanResource extends JsonResource
             'due' => number_format($this->totalDue(),2),
             'paid' => number_format($this->totolPayment(),2),
             'balance' => number_format($this->totalBalance(),2),
-            'release' => Carbon::parse($this->release_date)->toDayDateTimeString(),
+            'release' => $this->release_date ? Carbon::parse($this->release_date)->format('d/m/Y') : null,
             'maturity' => $this->getMaturity(),
             'interest_maturity' => number_format($this->getInterestMaturity(),2),
             'status' => $this->status,

@@ -47,7 +47,7 @@
                     </div>
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Position
+                    Phone Number
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Status
@@ -77,7 +77,7 @@
                 </td>
                 <td class="py-4 px-6">
                     <!-- Modal toggle -->
-                    <Link :href="'/members/' + member.id" type="button" as="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View User</Link>
+                    <Link :href="'/members/' + member.id" type="button" as="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Member</Link>
                 </td>
             </tr>
 

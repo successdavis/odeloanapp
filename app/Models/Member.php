@@ -27,6 +27,11 @@ class Member extends Model
         return $this->hasOne(Nextofkin::class);
     }
 
+    public function fine()
+    {
+        return $this->hasMany(Fine::class);
+    }
+
     public function addNextOfKin($nextofkin)
     {
         $nextofkin =  $this->nextofkin()->create($nextofkin);

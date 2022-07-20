@@ -82,11 +82,18 @@ class LoanController extends Controller
         $member = $loan->owner;
         $payments = $loan->payments;
         $guarantors = $loan->guarantors()->get();
+        $nextpayment = null;
+
+        if ($loan->loancategory_id === 2) {
+            $nextpayment = $loan->getLongTermNextPayment();
+        }
+
         return Inertia::render('Loan/Show',[
             'loan' => new LoanResource($loan),
             'member' => $member,
             'payments' => PaymentResource::collection($payments),
-            'guarantors' => $guarantors
+            'guarantors' => $guarantors,
+            'nextpayment' => number_format($nextpayment, 2)
         ]);
     }
 

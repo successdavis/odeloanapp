@@ -18,13 +18,14 @@ class WelcomeController extends Controller
     public function index()
     {
         $totalSaving = Payment::where('billable_type', 'App\Models\Account')->sum('amount');
-        $totalLoan = Loan::whereNot('status', 0)->sum('principal_amount');
+        $totalLoan = Loan::where('status', 1)->sum('principal_amount');
 
         $totalLoanPayment = Payment::where('billable_type', 'App\Models\Loan')->sum('amount');
         $totalMembers = Member::count();
         $treasurer_balance = Payment::sum('amount') - $totalLoan;
         $totalPayments = Payment::sum('amount');
         $pendingloans = Loan::where('status', 0)->count();
+        $totalInterestFromAllLoan = Loan::totalInterestFromAllLoan();
 
         return Inertia::render('Welcome', [
             'totalSaving' => number_format($totalSaving, 2),
@@ -34,6 +35,7 @@ class WelcomeController extends Controller
             'totalLoanPayment' => number_format($totalLoanPayment, 2),
             'totalPayments' => number_format($totalPayments, 2),
             'pendingloans' => $pendingloans,
+            'totalInterestFromAllLoan' => number_format($totalInterestFromAllLoan,2),
         ]);
 
 //        return Inertia::render('Welcome', [
