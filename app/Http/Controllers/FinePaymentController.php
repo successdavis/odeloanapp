@@ -35,12 +35,19 @@ class FinePaymentController extends Controller
      */
     public function store(Fine $fine, Request $request)
     {
-//        dd($fine->payments()->addPayment());
-//        $fine->payments()->addPayment([
-//            'amount'    => $request->amount,
-//            'user_id'   =>  auth()->user()->id,
-//            'payment_date'    => null,
-//        ]);
+        dd($fine->payments()->get());
+        if ($fine->payments()->get() !== []){return redirect()->back();}
+
+        $fine->addPayment([
+            'amount'    => $fine->amount,
+            'user_id'   =>  auth()->user()->id,
+            'payment_date'    => null,
+            'payment_method'    => 'Cash',
+        ]);
+
+        $fine->status = true;
+
+        $fine->save();
 
         return redirect()->back();
     }
