@@ -20,7 +20,7 @@ defineProps({
 <template>
     <Head title="Mbaikyu Pepper Thrift " />
 
-    <h1 class="mb-8 text-4xl text-center">MBAIKYU PEPPER THRIFT & LOANS</h1>
+    <h1 class="mb-8 text-4xl text-center">STECHMAX MONEY DIRECT</h1>
 
     <div class="grid grid-cols-4 mb-4">
         <div  class="grid  divide-y w-64 p-4 py-8 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 text-center">

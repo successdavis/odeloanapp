@@ -1,18 +1,20 @@
 <script setup>
+import { ref } from 'vue';
 import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue';
+import GuestNavbar from '@/Components/GuestNavbar.vue';
+import Sidebar from '@/Components/Sidebar.vue';
+import BreezeDropdown from '@/Components/Dropdown.vue';
+import BreezeDropdownLink from '@/Components/DropdownLink.vue';
+import BreezeNavLink from '@/Components/NavLink.vue';
+import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
+
+const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-        <div>
-            <Link href="/">
-                <BreezeApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
-            </Link>
-        </div>
-
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-            <slot />
-        </div>
+    <guest-navbar></guest-navbar>
+    <div class="">
+        <slot></slot>
     </div>
 </template>
