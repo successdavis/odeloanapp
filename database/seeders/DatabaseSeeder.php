@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
          ]);
 
          $this->call([
-            MemberSeeder::class,
+//            MemberSeeder::class,
             LoancategorySeeder::class,
         ]);
     }

@@ -6,6 +6,7 @@ use App\Http\Resources\PaymentResource;
 use App\Models\Account;
 use App\Models\Member;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -53,9 +54,9 @@ class AccountController extends Controller
      * @param  \App\Models\Account  $account
      * @return \Inertia\Response
      */
-    public function show(Member $member)
+    public function show(User $user)
     {
-        $account = $member->account;
+        $account = $user->account;
         $totalSaving = $account->payments()->sum('amount');
         $totalInterest = $account->totalInterest();
 

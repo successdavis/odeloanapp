@@ -1,7 +1,10 @@
 <template>
-    <p>Welcome to User Home</p>
+    <user-cards></user-cards>
 </template>
 
-<script setup>
-
+<script>
+import UserCards from "@/Components/UserCards.vue";
+export default {
+    components: {UserCards}
+}
 </script>

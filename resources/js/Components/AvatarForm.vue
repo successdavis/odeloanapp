@@ -1,49 +1,54 @@
 <template>
-    <div>
-        <img :src="avatar" class="is-rounded">
+    <div class="flex flex-col items-center">
+        <img :src="avatar" class="mb-3 w-24 h-24 rounded-full shadow-lg" alt="User Avatar">
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><Link :href="'/dashboard/user/' + member.id + '/profile'">{{member.title + ' ' + member.name}}</Link></h5>
+
         <form v-if="canUpdate" method="POST" enctype="multipart/form-data">
             <image-upload name="avatar" class="is-rounded none" @loaded="onLoad"></image-upload>
         </form>
     </div>
+
 </template>
 
 <script>
-    import ImageUpload from './ImageUpload.vue';
-    export default {
-        props: ['member'],
+import ImageUpload from './ImageUpload.vue';
+import { Link } from '@inertiajs/inertia-vue3'
 
-        components: {ImageUpload},
+export default {
+    props: ['member'],
 
-        data() {
-            return {
-                avatar: this.member.avatar_path
-            };
+    components: {ImageUpload, Link},
+
+    data() {
+        return {
+            avatar: this.member.avatar_path
+        };
+    },
+
+    computed: {
+        canUpdate() {
+            return true;
+            // return this.authorize(user => user.id === this.user.id, 'isAdmin')
+        }
+    },
+
+    methods: {
+        onLoad(avatar) {
+            this.avatar = avatar.src;
+
+            this.persist(avatar.file);
         },
-
-        computed: {
-            canUpdate() {
-                return true;
-                // return this.authorize(user => user.id === this.user.id, 'isAdmin')
-            }
-        },
-
-        methods: {
-            onLoad(avatar) {
-                this.avatar = avatar.src;
-
-                this.persist(avatar.file);
-            },
         persist(avatar) {
-                let data = new FormData();
+            let data = new FormData();
 
-                data.append('avatar', avatar);
+            data.append('avatar', avatar);
 
-                axios.post(`/memberpassport/${this.member.id}/avatar`, data)
-                    .then(() => {
-                        console.log('Successful');
-                    });
-            }
+            axios.post(`/memberpassport/${this.member.id}/avatar`, data)
+                .then(() => {
+                    console.log('Successful');
+                });
         }
     }
+}
 
 </script>

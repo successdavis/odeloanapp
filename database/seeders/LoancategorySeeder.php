@@ -32,7 +32,7 @@ class LoancategorySeeder extends Seeder
         ]);
         $loan = Loan::factory()->create([
            'loancategory_id' => $category->id,
-           'member_id' => 1,
+           'user_id' => 1,
             'maturity'  => new Carbon('2022-12-21'),
         ]);
 

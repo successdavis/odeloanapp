@@ -32,7 +32,7 @@ class Loan extends Model
 
     public function owner()
     {
-        return $this->belongsTo(Member::class,'member_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function getRepaymentCycle()

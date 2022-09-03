@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('mobile');
             $table->string('gender');
-            $table->foreignId('member_id')
+            $table->foreignId('user_id')
               ->constrained()
               ->onUpdate('cascade')
               ->onDelete('cascade');

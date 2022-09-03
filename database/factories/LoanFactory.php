@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Loancategory;
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,8 +23,8 @@ class LoanFactory extends Factory
             'loancategory_id' => function() {
                 return Loancategory::factory()->create()->id;
             },
-            'member_id' => function() {
-                return Member::factory()->create()->id;
+            'user_id' => function() {
+                return User::factory()->create()->id;
             },
             'principal_amount'  => 100000.00,
             'loan_interest' => 10,

@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+
 use Inertia\Inertia;
 
 class MemberController extends Controller
@@ -18,7 +25,7 @@ class MemberController extends Controller
     {
         $search = $request->search;
 
-        $members = Member::query()
+        $members = User::query()
             ->when($request->input('search'), function ($query, $search){
                 $query->where('name', 'like', '%' . $search . '%');
             })
@@ -48,11 +55,13 @@ class MemberController extends Controller
         $request->validate([
             'name' => 'required',
             'r_address' => 'required',
-            'email' => 'unique:members',
-            'mobile' => 'required|min:11'
+            'email' => 'nullable|string|email|max:255|unique:members',
+            'mobile' => 'required|min:11',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+
         ]);
 
-        $member = new Member();
+        $member = new User();
         $member->name = $request->name;
         $member->state = $request->state;
         $member->lga = $request->lga;
@@ -68,6 +77,7 @@ class MemberController extends Controller
         $member->working_status = $request->working_status;
         $member->description = $request->description;
         $member->sponsorid = $request->sponsorid;
+        $member->password   = Hash::make($request->password);
 
         $member->save();
 
@@ -81,10 +91,10 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Inertia\Response
      */
-    public function show(Member $member)
+    public function show(User $member)
     {
 
-        $sponsor = $member->sponsorid ? Member::find($member->sponsorid)->only('name') : '';
+        $sponsor = $member->sponsorid ? User::find($member->sponsorid)->only('name') : '';
         $nextofking = $member->nextofkin;
         return Inertia::render('Member/Show', ['member' => $member, 'sponsor' => $sponsor, 'nextofkin' => $nextofking]);
     }

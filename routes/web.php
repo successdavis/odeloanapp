@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/getsponsors', [SponsorController::class, 'index']);
     Route::get('/members/register', [MemberController::class, 'create']);
     Route::get('/members/{member}', [MemberController::class, 'show']);
+    Route::get('/members/{user}/profile', [UserController::class, 'show']);
     Route::post('/members/register', [MemberController::class, 'store']);
 
     Route::post('/memberpassport/{member}/avatar', [AvatarController::class, 'store']);
@@ -73,7 +74,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/account/{account}/addtransaction', [AccountController::class, 'create']);
     Route::post('/account/{account}/savetransaction', [AccountController::class, 'store']);
-    Route::get('/account/{member}/view-account', [AccountController::class, 'show']);
+    Route::get('/account/{user}/view-account', [AccountController::class, 'show']);
     Route::post('/account/{account}/set-interest', [AccountInterestController::class, 'store']);
     Route::get('/savings/accounts', [AccountController::class, 'index']);
 

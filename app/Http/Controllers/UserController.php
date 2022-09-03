@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -42,11 +43,13 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        $sponsor = $user->sponsorid ? User::find($user->sponsorid)->only('name') : '';
+        $nextofking = $user->nextofkin;
+        return Inertia::render('Profile/Show', ['user' => $user, 'sponsor' => $sponsor, 'nextofkin' => $nextofking]);
     }
 
     /**

@@ -14,11 +14,11 @@ class Account extends Model
 
 
     protected $guarded = [];
-    protected $with = ['member'];
+    protected $with = ['user'];
 
-    public function member()
+    public function user()
     {
-        return $this->belongsTo(Member::class);
+        return $this->belongsTo(User::class);
     }
 
     public function totalInterest()

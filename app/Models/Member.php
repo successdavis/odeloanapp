@@ -53,8 +53,8 @@ class Member extends Model
         }
     }
 
-    public function account()
-    {
-        return $this->hasOne(Account::class);
-    }
+//    public function account()
+//    {
+//        return $this->hasOne(Account::class);
+//    }
 }

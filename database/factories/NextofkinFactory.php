@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,8 +25,8 @@ class NextofkinFactory extends Factory
             'mobile' => "09078056989",
             'Relationship' => "Son",
             'address' => fake()->address(),
-            'member_id' => function () {
-                return Member::factory()->create()->id;
+            'user_id' => function () {
+                return User::factory()->create()->id;
             },
         ];
     }

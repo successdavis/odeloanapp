@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AvatarController extends Controller
@@ -33,7 +34,7 @@ class AvatarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Member $member)
+    public function store(Request $request, User $member)
     {
         $this->validate(request(), [
             'avatar' => ['required', 'image','max:3000']
