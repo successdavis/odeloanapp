@@ -94,9 +94,19 @@ class MemberController extends Controller
     public function show(User $member)
     {
 
-        $sponsor = $member->sponsorid ? User::find($member->sponsorid)->only('name') : '';
-        $nextofking = $member->nextofkin;
-        return Inertia::render('Member/Show', ['member' => $member, 'sponsor' => $sponsor, 'nextofkin' => $nextofking]);
+//        $sponsor = $member->sponsorid ? User::find($member->sponsorid)->only('name') : '';
+//        $nextofking = $member->nextofkin;
+        $lastloan = $member->loans()->where('Status',1)->first();
+        $borrowedfunds = number_format($lastloan->totalDue(),2);
+
+        $savingsbalance = number_format($member->account->totalSavingBalance());
+        return Inertia::render('Member/Show', [
+            'member' => $member,
+            'borrowedfunds' => $borrowedfunds,
+            'lastloan' => $lastloan,
+            'nextloanpayment' => $lastloan,
+            'savingsbalance' => $savingsbalance
+        ]);
     }
 
     /**

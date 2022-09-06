@@ -30,4 +30,13 @@ class Account extends Model
 
         return 0;
     }
+
+//    get the total amount saved together with accumulated interst
+    public function totalSavingBalance()
+    {
+        $totalSaving = $this->payments()->sum('amount');
+        $totalInterest = $this->totalInterest();
+
+        return $totalInterest + $totalSaving;
+    }
 }

@@ -8,45 +8,50 @@
                     <div>
                         <avatar-form :member="user"></avatar-form>
                     </div>
-                    <div class="grid grid-cols-2 gap-12 md:col-span-3">
-                        <div class="w-full grid-cols-2">
-                            <div class="grid grid-cols-3 gap-6">
-                                <div class="font-semibold">Gender:</div>
-                                <div class="col-span-2">{{ user.gender }}</div>
+                    <div class="md:col-span-3 mt-4 md:mt-0">
+                                <h5 class="mb-1 text-xl md:text-4xl font-bold text-gray-900 dark:text-white"><Link :href="'/members/' + user.id">{{user.title + ' ' + user.name}}</Link></h5>
+
+                        <div class="md:grid grid-cols-2 gap-12">
+                            <div class="w-full">
+                                <div class="grid grid-cols-3 gap-6">
+                                    <div class="font-semibold">Gender:</div>
+                                    <div class="col-span-2">{{ user.gender }}</div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-6">
+                                    <div class="font-semibold">State:</div>
+                                    <div class="col-span-2">{{ user.state }}</div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-6">
+                                    <div class="font-semibold">LGA:</div>
+                                    <div class="col-span-2">{{ user.lga }}</div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-6">
+                                    <div class="font-semibold">Address:</div>
+                                    <div class="col-span-2">{{ user.r_address }}</div>
+                                </div>
+                                    <div class="grid grid-cols-3 gap-6">
+                                    <div class="font-semibold">Email:</div>
+                                    <div class="col-span-2">{{ user.email }}</div>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-3 gap-6">
-                                <div class="font-semibold">State:</div>
-                                <div class="col-span-2">{{ user.state }}</div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-6">
-                                <div class="font-semibold">LGA:</div>
-                                <div class="col-span-2">{{ user.lga }}</div>
-                            </div>
-                            <div class="grid grid-cols-3 gap-6">
-                                <div class="font-semibold">Address:</div>
-                                <div class="col-span-2">{{ user.r_address }}</div>
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <div class="grid grid-cols-2 gap-6">
-                                <div class="font-semibold">Date of Birth:</div>
-                                <div>{{  dateTime(user.dob) }}</div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div class="font-semibold">Phone Number:</div>
-                                <div>{{ user.mobile }}</div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div class="font-semibold">Email:</div>
-                                <div>{{ user.email }}</div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div class="font-semibold">Working Status:</div>
-                                <div>{{ user.working_status }}</div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div class="font-semibold">Sponsor:</div>
-                                <div>{{ sponsor.name }}</div>
+                            <div class="w-full">
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="font-semibold">Date of Birth:</div>
+                                    <div>{{  dateTime(user.dob) }}</div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="font-semibold">Phone Number:</div>
+                                    <div>{{ user.mobile }}</div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="font-semibold">Working Status:</div>
+                                    <div>{{ user.working_status }}</div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="font-semibold">Sponsor:</div>
+                                    <div>{{ sponsor.name }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -55,7 +60,7 @@
 
         </a>
         <!--        Next of Kin Information -->
-        <div class="mb-4 bg-white rounded-lg border shadow-md md:flex-row md:max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <div class="mb-4 mt-4 bg-white rounded-lg border shadow-md md:flex-row md:max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <div class="mt-3">
 
                 <div class="mb-3 bg-gray-100 p-2 text-center font-semibold">Next of Kin</div>
@@ -84,8 +89,6 @@
 
 
         <Link v-show="!nextofkin" :href="'/nextofkin/create/' + user.id" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Next of Kin</Link>
-        <Link :href="'/account/' + user.id + '/view-account'" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">View Savings</Link>
-        <Link :href="'/fine/user-fine/' + user.id + ''" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Fines</Link>
 
 
     </div>

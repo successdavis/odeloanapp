@@ -46,7 +46,7 @@ class LoanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'member_id' => 'required|exists:members,id',
+           'user_id' => 'required|exists:users,id',
             'principal_amount' => 'required',
 //            'duration'  => 'required',
 //            'loan_interest' => 'required',
@@ -56,7 +56,7 @@ class LoanController extends Controller
 
         $loan = new Loan();
 
-        $loan->member_id        = $request->member_id;
+        $loan->user_id        = $request->user_id;
         $loan->principal_amount = $request->principal_amount;
         $loan->duration         = $request->duration;
         $loan->loan_interest    = $request->loan_interest;

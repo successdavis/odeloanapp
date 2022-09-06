@@ -17,6 +17,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserHomeController;
+use App\Http\Controllers\UserSearchController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Loancategory;
 use Illuminate\Foundation\Application;
@@ -36,6 +37,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/getusers', [UserController::class, 'index']);
 
     Route::get('/members', [MemberController::class, 'index']);
+    Route::get('/getmembers', [UserSearchController::class, 'index']);
     Route::get('/getsponsors', [SponsorController::class, 'index']);
     Route::get('/members/register', [MemberController::class, 'create']);
     Route::get('/members/{member}', [MemberController::class, 'show']);

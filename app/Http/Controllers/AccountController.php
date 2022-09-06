@@ -56,6 +56,7 @@ class AccountController extends Controller
      */
     public function show(User $user)
     {
+
         $account = $user->account;
         $totalSaving = $account->payments()->sum('amount');
         $totalInterest = $account->totalInterest();

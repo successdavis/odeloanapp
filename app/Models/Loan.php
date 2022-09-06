@@ -108,6 +108,15 @@ class Loan extends Model
         return 2000;
     }
 
+    public function getNextPayment()
+    {
+        $balance = $this->totalDue() - $this->payments()->sum('amount');
+
+        $accumulated_depreciation = $balance * ($this->category->interest / 100);
+
+        return $accumulated_depreciation;
+    }
+
 
     public function guarantors()
     {
