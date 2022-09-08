@@ -45,7 +45,7 @@ class AccountController extends Controller
     {
         $account->addPayment($request->all());
 
-        return redirect('/account/'. $account->member->id .'/view-account');
+        return redirect('/account/'. $account->user->id .'/view-account');
     }
 
     /**
