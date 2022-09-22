@@ -50,6 +50,9 @@
                     Phone Number
                 </th>
                 <th scope="col" class="py-3 px-6">
+                    Account Number
+                </th>
+                <th scope="col" class="py-3 px-6">
                     Status
                 </th>
                 <th scope="col" class="py-3 px-6">
@@ -68,6 +71,9 @@
                 </th>
                 <td class="py-4 px-6">
                     {{ member.mobile }}
+                </td>
+                <td class="py-4 px-6">
+                    {{ member.account_number }}
                 </td>
                 <td class="py-4 px-6">
                     <div class="flex items-center">

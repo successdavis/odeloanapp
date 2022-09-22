@@ -28,6 +28,7 @@ class MemberController extends Controller
         $members = User::query()
             ->when($request->input('search'), function ($query, $search){
                 $query->where('name', 'like', '%' . $search . '%');
+                $query->orWhere('account_number', 'like', '%' . $search . '%');
             })
             ->paginate(50);
 
