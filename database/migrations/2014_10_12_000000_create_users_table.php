@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar_path')->nullable();
+            $table->string('country');
             $table->string('state');
             $table->string('lga');
             $table->string('gender');
@@ -34,6 +35,8 @@ return new class extends Migration
             $table->string('passport')->nullable();
             $table->string('description')->nullable();
             $table->string('sponsorid')->nullable();
+            $table->string('account_number')->nullable()->unique();
+            $table->boolean('admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

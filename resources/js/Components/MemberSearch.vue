@@ -31,6 +31,8 @@ export default {
             axios.get(this.url, {params: {search: query}})
             .then((data) => {
                 this.members = data.data
+
+                console.log(data);
             })
         }, 300)
     },

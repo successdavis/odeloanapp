@@ -58,28 +58,13 @@ class MemberController extends Controller
             'email' => 'nullable|string|email|max:255|unique:members',
             'mobile' => 'required|min:11',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'sponsorid' => 'required',
 
         ]);
 
         $member = new User();
-        $member->name = $request->name;
-        $member->state = $request->state;
-        $member->lga = $request->lga;
-        $member->gender = $request->gender;
-        $member->title = $request->title;
-        $member->mobile = $request->mobile;
-        $member->email = $request->email;
-        $member->business_name = $request->business_name;
-        $member->dob = $request->dob;
-        $member->serial_no = $request->serial_no;
-        $member->r_address = $request->r_address;
-        $member->p_address = $request->p_address;
-        $member->working_status = $request->working_status;
-        $member->description = $request->description;
-        $member->sponsorid = $request->sponsorid;
-        $member->password   = Hash::make($request->password);
 
-        $member->save();
+        $this->saveMember($request, $member);
 
         return redirect('/members/' . $member->fresh()->id ,302);
     }
@@ -122,11 +107,20 @@ class MemberController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Member  $member
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, User $member)
     {
-        //
+          $request->validate([
+            'name' => 'required',
+            'r_address' => 'required',
+            'email' => 'nullable|string|email|max:255|unique:members',
+            'mobile' => 'required|min:11',
+        ]);
+
+        $this->saveMember($request, $member);
+
+        return redirect('/members/' . $member->fresh()->id ,302);
     }
 
     /**
@@ -138,5 +132,32 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         //
+    }
+
+    /**
+     * @param Request $request
+     * @param User $member
+     */
+    protected function saveMember(Request $request, User $member): void
+    {
+        $member->name = $request->name;
+        $member->state = $request->state;
+        $member->lga = $request->lga;
+        $member->gender = $request->gender;
+        $member->title = $request->title;
+        $member->mobile = $request->mobile;
+        $member->email = $request->email;
+        $member->business_name = $request->business_name;
+        $member->dob = $request->dob;
+        $member->country = $request->country;
+        $member->serial_no = $request->serial_no;
+        $member->r_address = $request->r_address;
+        $member->p_address = $request->p_address;
+        $member->working_status = $request->working_status;
+        $member->description = $request->description;
+        $member->sponsorid = $request->sponsorid;
+        $member->password = Hash::make($request->password);
+
+        $member->save();
     }
 }

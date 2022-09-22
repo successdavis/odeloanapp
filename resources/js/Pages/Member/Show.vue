@@ -1,7 +1,8 @@
 <template>
     <div class="flex justify-center gap-6 items-center mb-4 bg-gray-900 text-white">
         <img :src="member.avatar_path" class="m-3 w-12 h-12 rounded-lg shadow-lg" alt="User Avatar">
-        <Link :href="'/members/' + member.id + '/profile'" class="text-2xl font-bold uppercase">{{member.title + ' ' + member.name}}</Link>
+        <Link :href="'/members/' + member.id + '/profile'" class="text-2xl font-bold uppercase">{{member.title + ' ' + member.name}} -
+            {{ member.account_number }}</Link>
     </div>
     <div class="grid ">
         <user-cards :borrowedfunds="borrowedfunds" :savingsbalance="savingsbalance"></user-cards>

@@ -16,14 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(3)->create();
+        \App\Models\User::factory()->create([
+            'name' => 'Success David',
+            'email' => 'admin@gmail.com',
+            'account_number' => '1000001001',
+            'admin' => 1
+        ]);
+        \App\Models\User::factory(3)->create();
 
-         \App\Models\User::factory()->create([
-             'name' => 'Success David',
-            'email' => 'admin@gmail.com'
-         ]);
 
-         $this->call([
+        $this->call([
 //            MemberSeeder::class,
             LoancategorySeeder::class,
         ]);

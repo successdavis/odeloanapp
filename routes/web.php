@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', [UserHomeController::class, 'index']);
 });
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => ['auth', 'admin']], function() {
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/members/{member}', [MemberController::class, 'show']);
     Route::get('/members/{user}/profile', [UserController::class, 'show']);
     Route::post('/members/register', [MemberController::class, 'store']);
+    Route::get('/member/{user}/update', [UserController::class, 'edit']);
+    Route::patch('/member/{member}/update', [MemberController::class, 'update']);
 
     Route::post('/memberpassport/{member}/avatar', [AvatarController::class, 'store']);
 
@@ -72,8 +74,6 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/guarantor/{loan}/add', [GuarantorController::class, 'create']);
     Route::post('/guarantor/{loan}/register', [GuarantorController::class, 'store']);
-
-
     Route::get('/account/{account}/addtransaction', [AccountController::class, 'create']);
     Route::post('/account/{account}/savetransaction', [AccountController::class, 'store']);
     Route::get('/account/{user}/view-account', [AccountController::class, 'show']);

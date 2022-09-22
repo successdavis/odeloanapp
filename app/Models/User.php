@@ -51,6 +51,8 @@ class User extends Authenticatable
 
         static::created(function ($member) {
             $member->account()->create(['interest' => 5]);
+
+            $member->update(['account_number' => self::generateAccountNumber()]) ;
         });
     }
 
@@ -98,5 +100,24 @@ class User extends Authenticatable
     public function loans()
     {
         return $this->hasMany(Loan::class);
+    }
+
+        public function isAdmin()
+    {
+        // return in_array($this->f_name, ['JohnDoe', 'JaneDoe']);
+//        return $this->roles->isNotEmpty();
+        return $this->admin;
+    }
+
+    static function generateAccountNumber()
+    {
+        $lastaccount = self::orderBy('account_number','desc')->pluck('account_number')->first();
+        $newAccountNumber = $lastaccount + 1;
+
+        while(self::where('account_number', $newAccountNumber)->exists()){
+            $newAccountNumber = $newAccountNumber ++;
+        }
+
+        return $newAccountNumber;
     }
 }

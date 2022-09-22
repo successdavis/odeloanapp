@@ -9,7 +9,7 @@
                         <avatar-form :member="user"></avatar-form>
                     </div>
                     <div class="md:col-span-3 mt-4 md:mt-0">
-                                <h5 class="mb-1 text-xl md:text-4xl font-bold text-gray-900 dark:text-white"><Link :href="'/members/' + user.id">{{user.title + ' ' + user.name}}</Link></h5>
+                        <h5 class="mb-1 text-xl md:text-4xl font-bold text-gray-900 dark:text-white"><Link :href="'/members/' + user.id">{{user.title + ' ' + user.name}}</Link></h5>
 
                         <div class="md:grid grid-cols-2 gap-12">
                             <div class="w-full">
@@ -29,7 +29,7 @@
                                     <div class="font-semibold">Address:</div>
                                     <div class="col-span-2">{{ user.r_address }}</div>
                                 </div>
-                                    <div class="grid grid-cols-3 gap-6">
+                                <div class="grid grid-cols-3 gap-6">
                                     <div class="font-semibold">Email:</div>
                                     <div class="col-span-2">{{ user.email }}</div>
                                 </div>
@@ -54,6 +54,11 @@
                                 </div>
                             </div>
                         </div>
+                        <Link :href="`/member/${user.id}/update`" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 mt-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                              <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                  Edit User Information
+                              </span>
+                        </Link>
                     </div>
                 </div>
             </div>

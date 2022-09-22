@@ -14,7 +14,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <guest-navbar></guest-navbar>
-    <div class="">
+    <div class="max-w-7xl container mx-auto py-12">
         <slot></slot>
     </div>
 </template>

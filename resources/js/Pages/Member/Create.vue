@@ -7,14 +7,14 @@
         <div class="mb-3 bg-gray-100 p-2 text-center font-semibold">
             Personal Information
         </div>
-        <form  @submit.prevent="form.post('/members/register')">
+        <form  @submit.prevent="submit">
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 mt-2 mb-6 w-full group">
                     <input v-model="form.name" type="text" name="fullname" id="fullname" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
                     <label for="fullname" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Fullname</label>
                     <p v-if="form.errors.name" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.name }}.</p>
                 </div>
-                <member-search @member="member" url="/getsponsors" title="Sponsor"></member-search>
+                <member-search v-if="!this.user" @member="member" url="/getsponsors" title="Sponsor"></member-search>
 
                 <p v-if="form.errors.sponsorid" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.sponsorid }}.</p>
             </div>
@@ -123,7 +123,7 @@
                     <p v-if="form.errors.p_address" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.p_address }}.</p>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-2 gap-6" v-if="!this.user">
 
                 <div class="relative z-0 mb-6 w-full group">
                     <input v-model="form.password" type="password" name="password" id="password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
@@ -139,7 +139,8 @@
                 </div>
             </div>
 
-            <button type="submit" v-show="!form.processing"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            <button type="submit" v-show="!form.processing"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                {{ this.user ? 'Update' : 'Submit' }}</button>
         </form>
 
     </div>
@@ -153,6 +154,7 @@ import debounce from "lodash/throttle";
 import MemberSearch from "@/Components/MemberSearch.vue";
 
 export default {
+    props: {user: Object},
     components: {MemberSearch},
     data () {
         return {
@@ -160,24 +162,24 @@ export default {
         }
     },
 
-    setup() {
+    setup(props) {
         const form = useForm({
-            name: null,
-            email: null,
-            country: 'Nigeria',
-            state: null,
-            lga: null,
-            gender: null,
-            title: 'Choose a title',
-            mobile: null,
-            business_name: null,
-            dob: null,
-            serial_no: null,
-            r_address: null,
-            p_address: null,
-            working_status: 'Working Status',
-            description: null,
-            sponsorid: null,
+            name: props.user ? props.user.name : '',
+            email: props.user ? props.user.email : '',
+            country: props.user ? props.user.country : '',
+            state: props.user ? props.user.state : '',
+            lga: props.user ? props.user.lga : '',
+            gender: props.user ? props.user.gender : '',
+            title: props.user ? props.user.title : 'Choose a title',
+            mobile: props.user ? props.user.mobile : '',
+            business_name: props.user ? props.user.business_name : '',
+            dob: props.user ? props.user.dob : '',
+            serial_no: props.user ? props.user.serial_no : '',
+            r_address: props.user ? props.user.r_address : '',
+            p_address: props.user ? props.user.p_address : '',
+            working_status: props.user ? props.user.working_status : 'Working Status',
+            description: props.user ? props.user.description : '',
+            sponsorid: props.user ? props.user.sponsorid : '',
             password: null,
             password_confirmation: null,
         })
@@ -187,6 +189,14 @@ export default {
     methods: {
         member(member) {
             this.form.sponsorid = member.id;
+        },
+
+        submit() {
+            if (this.user) {
+                this.form.patch(`/member/${this.user.id}/update`)
+            }else {
+                this.form.post('/members/register')
+            }
         }
     }
 }
