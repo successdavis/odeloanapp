@@ -22,7 +22,7 @@ trait Billable
                 'user_id'   =>  auth()->id(),
                 'payment_method'    => $payment['payment_method'],
                 'payment_date'    => $payment['payment_date'],
-                'transaction_ref'   => bin2hex($bytes),
+                'transaction_ref'   => $payment['transaction_ref'],
             ])
         );
     }

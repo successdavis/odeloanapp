@@ -32,6 +32,7 @@ class AccountController extends Controller
     {
         return Inertia::render('Saving/Create', [
             'account' => $account,
+            'reference_code' => uniqid()
         ]);
     }
 
@@ -43,6 +44,10 @@ class AccountController extends Controller
      */
     public function store(Account $account, Request $request)
     {
+        request()->validate([
+           'transaction_ref' => ['required', 'unique:payments']
+        ]);
+
         $account->addPayment($request->all());
 
         return redirect('/account/'. $account->user->id .'/view-account');
