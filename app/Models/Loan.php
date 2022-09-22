@@ -139,6 +139,7 @@ class Loan extends Model
             'user_id' => 1,
             'payment_method' => 'Interest Deduction',
             'payment_date' => null,
+            'transaction_ref' => uniqid(),
         ]);
     }
 
