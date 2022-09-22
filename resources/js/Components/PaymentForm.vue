@@ -20,9 +20,6 @@
                 </select>
                 <p v-if="form.errors.payment_method" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.payment_method }}.</p>
 
-                <div class="mt-5">
-                    <member-search url="/getusers" title="Collected By"  @member="setUser"></member-search>
-                </div>
 
                 <p class="text-xs py-2 mb-4">If payment date is left blank, it will default to today's date</p>
                     <div class="relative z-0 mb-6 w-full group">
@@ -55,8 +52,7 @@ export default  {
             payment_method: 'Choose Payment Method',
             amount: null,
             payment_date: '',
-            user_id: 'hello',
-            transaction_ref: 'hello',
+            transaction_ref: '',
         })
         return {form}
     },
