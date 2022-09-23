@@ -18,11 +18,11 @@ class Loan extends Model
     ];
 
     private $repayment_cycle = [
-            'Daily' => 30,
-            'Weekly'    => 4,
-            'Biweekly'  => 2,
-            'Monthly'   => 1,
-        ];
+        'Daily' => 30,
+        'Weekly'    => 4,
+        'Biweekly'  => 2,
+        'Monthly'   => 1,
+    ];
 
     /** @test */
     public function category()
@@ -199,5 +199,22 @@ class Loan extends Model
     static public function todayTotalInterestFromAllLoan(): float|int
     {
         return self::todayShortTermInterestTotal() + self::todayLongTermInterestTotal();
+    }
+
+    static function nextMeeting()
+    {
+        $today = today();
+        $nextEvent = today();
+
+        if ($today->day <= 6) {
+            $nextEvent->day = 6;
+        } elseif ($today->day <= 21) {
+            $nextEvent->day = 21;
+        } else {
+            $nextEvent->day = 6;
+            $nextEvent->month = $nextEvent->month + 1;
+        }
+
+        return $nextEvent;
     }
 }

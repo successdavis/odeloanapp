@@ -1,11 +1,12 @@
 <template>
-    <div class="text-center bg-blue-200 py-6 mb-0 font-semibold text-xl ">View Loan Details - <span class="text-blue-600">{{loanStatus()}}</span> </div>
+    <div class="text-center bg-blue-200 py-6 mb-0 font-semibold text-xl ">Loan Details - <span class="text-blue-600">{{loanStatus()}}</span> </div>
     <a href="#" class="flex flex-col items-center bg-white  border shadow-md md:flex-row md:max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
 <!--        <img class="object-cover w-full h-full rounded-t-lg md:h-auto  md:w-48 md:rounded-none md:rounded-l-lg" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">-->
-        <avatar-form :member="member"></avatar-form>
+
+        <img :src="member.avatar_path" class="mb-3 w-24 h-24 ml-3 rounded-full shadow-lg" alt="User Avatar">
 
         <div class="flex flex-col justify-between p-4 leading-normal">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{member.title + ' ' + member.name}}}</h5>
+            <Link :href="`/members/${member.id}/profile`" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{member.title + ' ' + member.name}}</Link>
             <div class="grid w-full md:grid-cols-3 md:gap-6">
                 <div class="w-full">
                     <div class="grid grid-cols-2 gap-6">
@@ -24,12 +25,8 @@
                         <div>{{ member.mobile }}</div>
                     </div>
                     <div class="grid grid-cols-2 gap-6">
-                        <div class="font-semibold">Email:</div>
-                        <div>{{ member.email }}</div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="font-semibold">Status:</div>
-                        <div>{{ member.working_status }}</div>
+                        <div class="font-semibold">Loan Type:</div>
+                        <div>{{ loan.data.category }}</div>
                     </div>
                 </div>
             </div>

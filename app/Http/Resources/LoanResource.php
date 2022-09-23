@@ -29,6 +29,7 @@ class LoanResource extends JsonResource
             'maturity' => $this->getMaturity(),
             'interest_maturity' => number_format($this->getInterestMaturity(),2),
             'status' => $this->status,
+            'category' => $this->category->name,
         ];
     }
 }

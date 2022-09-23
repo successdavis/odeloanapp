@@ -51,9 +51,9 @@ class User extends Authenticatable
         parent::boot();
 
         static::created(function ($member) {
-            $member->account()->create(['interest' => 5]);
+            $member->update(['account_number' => self::generateAccountNumber()]);
 
-            $member->update(['account_number' => self::generateAccountNumber()]) ;
+            $member->account()->create(['interest' => 5]);
         });
     }
 

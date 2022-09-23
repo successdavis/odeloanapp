@@ -4,7 +4,7 @@
         <div class="container flex max-w-7xl flex-wrap justify-between items-center mx-auto">
             <a href="/" class="flex items-center">
                 <img src="/images/MoneyDirect.webp" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">STechmax Money Direct</span>
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Mbaikyu</span>
             </a>
             <div class="flex md:order-2 gap-2">
                 <Link v-if="$page.props.auth.user" type="button" :href="$page.props.auth.user.admin === 1 ? '/dashboard' : '/home'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Home</Link>
