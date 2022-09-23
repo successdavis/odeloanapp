@@ -16,10 +16,10 @@ class UserHomeController extends Controller
 
         $savingsbalance = number_format($member->account->totalSavingBalance());
 
-        $nextpayment = $lastloan->getNextPayment();
-        $nextpaymentdue = $lastloan->getMaturity();
+        $nextpayment = $lastloan ? $lastloan->getNextPayment() : 0;
+        $nextpaymentdue = $lastloan ? $lastloan->getMaturity() : 0;
 
-        if ($lastloan->loancategory_id === 2) {
+        if ($lastloan && $lastloan->loancategory_id === 2) {
             $nextpayment = $lastloan->getLongTermNextPayment();
         }
 
