@@ -62,7 +62,7 @@ class LoanController extends Controller
         $loan->loan_interest    = $request->loan_interest;
         $loan->grace_period     = $request->grace_period;
         $loan->loancategory_id  = $request->loancategory_id;
-        $loan->maturity         = $request->maturity;
+        $loan->maturity         = $request->maturity ? $request->maturity : Loan::nextMeeting();
         $loan->release_date     = $request->release_date;
         $loan->payment_date     = $request->payment_date;
 

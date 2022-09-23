@@ -82,7 +82,8 @@ class Loan extends Model
             return null;
         }
         if ($this->loancategory_id === 1) {
-            $maturity = Carbon::parse($this->getRepaymentCycleStartDate())->add('Week', 2 );
+//            $ne
+            $maturity = self::nextMeeting();
         }else {
             $maturity = Carbon::parse($this->getRepaymentCycleStartDate())->add('Year', 1 );
         }
@@ -213,6 +214,10 @@ class Loan extends Model
         } else {
             $nextEvent->day = 6;
             $nextEvent->month = $nextEvent->month + 1;
+        }
+
+        if (Carbon::parse($nextEvent)->format('l') === "Sunday") {
+            $nextEvent->day = $nextEvent->day + 1;
         }
 
         return $nextEvent;
