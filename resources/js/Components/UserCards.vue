@@ -15,7 +15,7 @@
                         <span class="font-sm">{{ nextpaymentdue }}</span>
                     </p>
                     <p class="mb-4 text-sm tracking-tight text-red-600 dark:text-white flex justify-between">
-                        <span class="border-2 px-2 rounded-md">₦82,000 early discount</span>
+<!--                        <span class="border-2 px-2 rounded-md">₦82,000 early discount</span>-->
 <!--                        <span class="font-sm">Due 3 Oct</span>-->
                     </p>
                     <div class="flex">
