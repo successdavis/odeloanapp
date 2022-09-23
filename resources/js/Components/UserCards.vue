@@ -11,12 +11,12 @@
                 <a href="#" class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5 class="mb-2 text-xs font-bold tracking-tight text-gray-900 dark:text-white">NEXT LOAN PAYMENT</h5>
                     <p class=" text-2xl font-bold tracking-tight text-gray-900 dark:text-white flex justify-between">
-                        <span>₦ 2,000,000</span>
-                        <span class="font-sm">Due 3 Oct</span>
+                        <span>₦ {{ nextpayment }}</span>
+                        <span class="font-sm">{{ nextpaymentdue }}</span>
                     </p>
                     <p class="mb-4 text-sm tracking-tight text-red-600 dark:text-white flex justify-between">
-                        <span class="border-2 px-2 rounded-md">₦8,000 early discount</span>
-                        <span class="font-sm">Due 3 Oct</span>
+                        <span class="border-2 px-2 rounded-md">₦82,000 early discount</span>
+<!--                        <span class="font-sm">Due 3 Oct</span>-->
                     </p>
                     <div class="flex">
                         <button type="button" class="w-full py-3 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Extend Time</button>
@@ -42,6 +42,8 @@ export default {
     props: {
         borrowedfunds: String,
         savingsbalance: String,
+        nextpayment: String,
+        nextpaymentdue: String,
     }
 }
 </script>

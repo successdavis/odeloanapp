@@ -5,7 +5,8 @@
             {{ member.account_number }}</Link>
     </div>
     <div class="grid ">
-        <user-cards :borrowedfunds="borrowedfunds" :savingsbalance="savingsbalance"></user-cards>
+           <user-cards :nextpaymentdue="nextpaymentdue" :nextpayment="nextpayment" :borrowedfunds="borrowedfunds" :savingsbalance="savingsbalance"></user-cards>
+
     </div>
     <div class="mt-4">
         <Link :href="'/account/' + member.id + '/view-account'" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">View Savings</Link>
@@ -26,6 +27,8 @@ export default {
         borrowedfunds: String,
         savingsbalance: String,
         member: Object,
+        nextpaymentdue: String,
+        nextpayment: String,
     },
 
     methods: {

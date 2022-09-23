@@ -82,7 +82,8 @@ class LoanController extends Controller
         $member = $loan->owner;
         $payments = $loan->payments;
         $guarantors = $loan->guarantors()->get();
-        $nextpayment = null;
+        $nextpayment = $loan->getNextPayment();
+        $nextpaymentdue = $loan->getNextPaymentDue();
 
         if ($loan->loancategory_id === 2) {
             $nextpayment = $loan->getLongTermNextPayment();
@@ -93,7 +94,8 @@ class LoanController extends Controller
             'member' => $member,
             'payments' => PaymentResource::collection($payments),
             'guarantors' => $guarantors,
-            'nextpayment' => number_format($nextpayment, 2)
+            'nextpayment' => number_format($nextpayment, 2),
+            'nextpaymentdue' => $nextpaymentdue // Due date for next payment
         ]);
     }
 

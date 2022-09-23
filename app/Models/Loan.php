@@ -65,6 +65,9 @@ class Loan extends Model
     {
         $percentage = $this->loan_interest ?: $this->category->interest;
         $duration = $this->duration ?:  $this->category->duration;
+        if ($this->category->id == 2) {
+            $duration = 1;
+        }
 
         $totalInterest = ($percentage / 100) * $this->principal_amount * $duration;;
 
@@ -85,7 +88,15 @@ class Loan extends Model
 //            $ne
             $maturity = self::nextMeeting();
         }else {
-            $maturity = Carbon::parse($this->getRepaymentCycleStartDate())->add('Year', 1 );
+            $start = today();
+            $start->day = 21;
+            $start->month = 12;
+            $start->year = 2021;
+
+
+            return $start->addYear(2)->format('d  M Y');
+
+            //            $maturity = Carbon::parse($this->getRepaymentCycleStartDate())->add('Year', 1 );
         }
 
         return Carbon::parse($this->maturity ?: $maturity)->format('d/m/Y');
@@ -111,11 +122,18 @@ class Loan extends Model
 
     public function getNextPayment()
     {
-        $balance = $this->totalDue() - $this->payments()->sum('amount');
+//        $balance = $this->totalDue() - $this->payments()->sum('amount');
+//
+//        $accumulated_depreciation = $balance * ($this->category->interest / 100);
 
-        $accumulated_depreciation = $balance * ($this->category->interest / 100);
+        return $this->totalBalance();
+    }
 
-        return $accumulated_depreciation;
+    public function getNextPaymentDue()
+    {
+        if ($this->category->id == 1) {
+            return Carbon::parse(self::nextMeeting())->format('D d M');
+        }
     }
 
 

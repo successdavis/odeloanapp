@@ -1,6 +1,7 @@
 <template>
     <h2 class="md:text-3xl my-6 font-bold text-center">{{$page.props.auth.user.name}} - {{$page.props.auth.user.account_number}}</h2>
-    <user-cards :borrowedfunds="borrowedfunds" :savingsbalance="savingsbalance"></user-cards>
+
+    <user-cards :nextpaymentdue="nextpaymentdue" :nextpayment="nextpayment" :borrowedfunds="borrowedfunds" :savingsbalance="savingsbalance"></user-cards>
 </template>
 
 <script>
@@ -15,6 +16,8 @@ export default {
     props: {
         borrowedfunds: String,
         savingsbalance: String,
+        nextpaymentdue: String,
+        nextpayment: String,
         member: Object,
     }
 }

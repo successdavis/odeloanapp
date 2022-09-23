@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Fine;
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -33,7 +34,7 @@ class FineController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function create(Member $member)
+    public function create(User $member)
     {
         return Inertia::render('Fine/Create',['Member' => $member]);
     }
@@ -44,7 +45,7 @@ class FineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Member $member, Request $request)
+    public function store(User $member, Request $request)
     {
         $member->fine()->create(
             $request->all()
@@ -59,7 +60,7 @@ class FineController extends Controller
      * @param  \App\Models\Fine  $fine
      * @return \Inertia\Response
      */
-    public function show(Member $member)
+    public function show(User $member)
     {
         $fines = $member->fine()->get();
 

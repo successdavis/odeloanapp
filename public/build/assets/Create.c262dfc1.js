@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as o,F as a,b as s,g as c}from"./app.21bcf8c6.js";const n={},r=s("div",{class:"text-center bg-blue-200 py-6 mb-6 font-semibold text-xl"},"Add Loan Category",-1),_=c(" Coming soon ");function d(l,i){return t(),o(a,null,[r,_],64)}var f=e(n,[["render",d]]);export{f as default};

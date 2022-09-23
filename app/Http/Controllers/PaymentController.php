@@ -27,7 +27,10 @@ class PaymentController extends Controller
      */
     public function create(Loan $loan)
     {
-        return Inertia::render('Payment/Create', ['loan' => new LoanResource($loan)]);
+        return Inertia::render('Payment/Create', [
+            'loan' => new LoanResource($loan),
+            'transaction_ref' => uniqid(),
+        ]);
     }
 
     /**

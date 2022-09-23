@@ -19,7 +19,7 @@ trait Billable
         return $this->payments()->save(
             new Payment([
                 'amount'    => $payment['amount'],
-                'user_id'   =>  $payment['user_id'] ?: auth()->id(),
+                'user_id'   =>  auth()->id(),
                 'payment_method'    => $payment['payment_method'],
                 'payment_date'    => $payment['payment_date'],
                 'transaction_ref'   => $payment['transaction_ref'],

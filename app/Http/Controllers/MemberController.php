@@ -82,13 +82,23 @@ class MemberController extends Controller
         $lastloan = $member->loans()->where('Status',1)->first();
         $borrowedfunds = $lastloan ? number_format($lastloan->totalDue(),2) : 0;
 
+
+        $nextpayment = $lastloan ? $lastloan->getNextPayment() : 0;
+        $nextpaymentdue = $lastloan ? $lastloan->getMaturity() : 0;
+
+        if ($lastloan && $lastloan->loancategory_id === 2) {
+            $nextpayment = $lastloan->getLongTermNextPayment();
+        }
+
         $savingsbalance = number_format($member->account->totalSavingBalance());
         return Inertia::render('Member/Show', [
             'member' => $member,
             'borrowedfunds' => $borrowedfunds,
             'lastloan' => $lastloan,
             'nextloanpayment' => $lastloan,
-            'savingsbalance' => $savingsbalance
+            'savingsbalance' => $savingsbalance,
+            'nextpayment' => number_format($nextpayment),
+            'nextpaymentdue' => $nextpaymentdue,
         ]);
     }
 
@@ -112,7 +122,7 @@ class MemberController extends Controller
      */
     public function update(Request $request, User $member)
     {
-          $request->validate([
+        $request->validate([
             'name' => 'required',
             'r_address' => 'required',
             'email' => 'nullable|string|email|max:255|unique:members',

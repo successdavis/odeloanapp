@@ -94,7 +94,7 @@
 
     <div class="text-center bg-blue-200 py-6 mb-0 font-semibold text-xl ">Add Loan Payment</div>
 
-    <payment-form :url="'/repayment/' + loan.data.id + '/addpayment'"></payment-form>
+    <payment-form :transaction_ref="transaction_ref" :url="'/repayment/' + loan.data.id + '/addpayment'"></payment-form>
 
 </template>
 <script>
@@ -108,6 +108,7 @@ export default  {
     components: {PaymentForm, MemberSearch},
     props: {
         loan: Object,
+        transaction_ref: String,
     },
 
     setup() {

@@ -135,17 +135,27 @@
             <th scope="col" class="py-3 px-2">
                 Next Payment
             </th>
+            <th scope="col" class="py-3 px-2">
+                Due by
+            </th>
         </tr>
         </thead>
         <tbody>
-        <tr v-if="loan.data.loancategory_id === 2" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="py-4 px-2">
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td class="py-4 px-2 text-xl">
                 <div class="flex items-center">
                     <!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
                     Min of: ₦{{ nextpayment }}
                 </div>
             </td>
+            <td class="py-4 px-2 text-xl">
+                <div class="flex items-center">
+                    <!--                        <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>-->
+                    {{ nextpaymentdue }}
+                </div>
+            </td>
         </tr>
+
         </tbody>
     </table>
 
@@ -324,7 +334,8 @@ export default {
         member: Object,
         payments: Object,
         guarantors: Object,
-        nextpayment: String
+        nextpayment: String,
+        nextpaymentdue: String
     },
 
     data () {
