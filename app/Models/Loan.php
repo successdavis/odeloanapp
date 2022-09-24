@@ -144,11 +144,19 @@ class Loan extends Model
 
     public function approveLoan()
     {
-        $this->status = 1;
-        $this->release_date = Carbon::now();
-        $this->makeUpFrontPayment();
+//        dd(auth()->user()->account_number);
+        if (auth()->user()->account_number === '1000001003') {
 
-        return $this->save();
+            $this->status = 1;
+            $this->release_date = Carbon::now();
+
+            if($this->loancategory_id === 2) {
+                $this->makeUpFrontPayment();
+            }
+
+            return $this->save();
+        }
+        abort('400','This action is Unathorized');
     }
 
     public function makeUpFrontPayment()

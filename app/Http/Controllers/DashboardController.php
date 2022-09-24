@@ -18,7 +18,7 @@ class DashboardController extends Controller
       public function index()
     {
         $totalSaving = Payment::where('billable_type', 'App\Models\Account')->sum('amount');
-        $totalLoan = Loan::where('status', 1)->sum('principal_amount');
+        $totalLoan = Loan::where('status', 1)->orWhere('status', 2)->sum('principal_amount');
 
         $totalLoanPayment = Payment::where('billable_type', 'App\Models\Loan')->sum('amount');
         $totalMembers = Member::count();

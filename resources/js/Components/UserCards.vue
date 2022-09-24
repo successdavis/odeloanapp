@@ -1,8 +1,8 @@
 <template>
-    <div class="grid grid-cols-3 gap-14">
+    <div class="md:grid grid-cols-3 gap-14">
         <div class="md:col-span-2">
-            <div class="grid grid-cols-2 gap-6">
-                <a href="#" class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div class="md:grid mb-3 grid-cols-2 gap-6">
+                <a href="#" class="mb-3 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5 class="mb-2 text-xs	 font-bold tracking-tight text-gray-900 dark:text-white">BORROWED FUNDS</h5>
                     <h5 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">₦ {{ borrowedfunds }}</h5>
                     <p class="font-normal text-sm text-gray-700 dark:text-gray-400">Disbursed: 9 Jul, 00:36 PM</p>
