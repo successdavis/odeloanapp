@@ -151,7 +151,7 @@ class MemberController extends Controller
      */
     protected function saveMember(Request $request, User $member): void
     {
-        $member->name = $request->name;
+        $member->name = ucwords($request->name);
         $member->state = $request->state;
         $member->lga = $request->lga;
         $member->gender = $request->gender;

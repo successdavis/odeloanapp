@@ -54,7 +54,7 @@ class PaymentController extends Controller
         }
 
         $loan->addPayment($request->all());
-//        return redirect('/loans/view_loan_details/' . $loan->id);
+        return redirect('/loans/view_loan_details/' . $loan->id);
     }
 
     /**

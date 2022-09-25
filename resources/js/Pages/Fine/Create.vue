@@ -14,8 +14,10 @@
                 <label for="underline_select" class="sr-only">Purpose</label>
                 <select  v-model="form.name" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                     <option selected="">Choose Fine</option>
-                    <option value="Long Term Loan Saving Fine">Long Term Loan Saving Fine</option>
-                    <option value="Short Term Loan Saving Fine">Short Term Loan Saving Fine</option>
+                    <option value="Long Term Loan Saving Fine">Absent From Meeting</option>
+                    <option value="Short Term Loan Saving Fine">Late Coming to Meeting</option>
+                    <option value="Short Term Loan Saving Fine">Noise</option>
+                    <option value="Short Term Loan Saving Fine">Quarrel or Fight</option>
                 </select>
                 <p v-if="form.errors.name" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.name }}.</p>
 
@@ -32,9 +34,10 @@ import {watch, ref} from "vue";
 import { Inertia } from '@inertiajs/inertia';
 export default {
     props: {
-        Member: Object
+        Member: Object,
+        transaction_ref: String,
     },
-    setup() {
+    setup(props) {
         const form = useForm({
             name: 'Choose Fine',
             amount: null,

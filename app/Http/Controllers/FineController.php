@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FineResource;
 use App\Models\Fine;
 use App\Models\Member;
 use App\Models\User;
@@ -23,9 +24,9 @@ class FineController extends Controller
             ->when($request->input('search'), function ($query, $search){
                 $query->where('name', 'like', '%' . $search . '%');
             })
-            ->paginate(50);
+            ->where('status', false)->paginate(50);
 
-        return Inertia::render('Fine/Index', ['fines' => $fine]);
+        return Inertia::render('Fine/Index', ['fines' => FineResource::collection($fine)]);
 
     }
 
@@ -36,7 +37,10 @@ class FineController extends Controller
      */
     public function create(User $member)
     {
-        return Inertia::render('Fine/Create',['Member' => $member]);
+        return Inertia::render('Fine/Create',[
+            'Member' => $member,
+            'transaction_ref' => uniqid()
+        ]);
     }
 
     /**
@@ -64,7 +68,11 @@ class FineController extends Controller
     {
         $fines = $member->fine()->get();
 
-        return Inertia::render('Fine/Show',['fines' => $fines, 'member' => $member]);
+        return Inertia::render('Fine/Show',[
+            'fines' => FineResource::collection($fines),
+            'member' => $member,
+            'transaction_ref' => uniqid()
+        ]);
     }
 
     /**

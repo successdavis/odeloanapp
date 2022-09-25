@@ -35,14 +35,18 @@ class FinePaymentController extends Controller
      */
     public function store(Fine $fine, Request $request)
     {
-        dd($fine->payments()->get());
-        if ($fine->payments()->get() !== []){return redirect()->back();}
+        request()->validate([
+           'ref' => 'required|unique:payments'
+        ]);
+        if ($fine->payments()->get()->toArray() !== []){return redirect()->back();}
+
 
         $fine->addPayment([
             'amount'    => $fine->amount,
             'user_id'   =>  auth()->user()->id,
             'payment_date'    => null,
             'payment_method'    => 'Cash',
+            'transaction_ref'    => $request->ref,
         ]);
 
         $fine->status = true;

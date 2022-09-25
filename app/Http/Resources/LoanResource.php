@@ -17,7 +17,7 @@ class LoanResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'member_name' => $this->owner->name,
+            'member_name' => ucwords($this->owner->name),
             'principal_amount' => number_format($this->principal_amount,2),
             'duration' => $this->getDuration() . ' ' . $this->category->duration_period,
             'loan_interest' => number_format($this->getInterest()) . '%/' . $this->category->interest_period,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Loan;
 use App\Models\Member;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -21,7 +22,7 @@ class DashboardController extends Controller
         $totalLoan = Loan::where('status', 1)->orWhere('status', 2)->sum('principal_amount');
 
         $totalLoanPayment = Payment::where('billable_type', 'App\Models\Loan')->sum('amount');
-        $totalMembers = Member::count();
+        $totalMembers = User::count();
         $treasurer_balance = Payment::sum('amount') - $totalLoan;
         $totalPayments = Payment::sum('amount');
         $pendingloans = Loan::where('status', 0)->count();

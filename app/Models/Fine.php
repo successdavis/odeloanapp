@@ -13,7 +13,7 @@ class Fine extends Model
 
     protected $guarded = [];
 
-    public function member()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

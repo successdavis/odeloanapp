@@ -1,10 +1,15 @@
 <template>
-    <p class="mb-3 bg-gray-100 p-5 text-center font-semibold">Fines for <span>{{member.name}}</span></p>
+    <p class="mb-3 bg-gray-100 p-5 text-center font-semibold md:text-4xl">Fines for <span>{{member.name}}</span></p>
     <Link :href="'/create-fine/' + member.id" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add fine</Link>
 
      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
+                <th scope="col" class="py-3 px-6">
+                    <div class="flex items-center">
+                        Date
+                    </div>
+                </th>
                 <th scope="col" class="py-3 px-6">
                     <div class="flex items-center">
                         Purpose
@@ -23,7 +28,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(fine, index) in fines" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr v-for="(fine, index) in fines.data" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td class="py-4 px-6">
+                    {{ fine.date }}
+                </td>
+
                 <th scope="row" class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
                     <div class="pl-3">
                         <div class="text-base font-semibold">{{ fine.name }}</div>
@@ -41,7 +50,7 @@
                 </td>
                 <td class="py-4 px-6">
                     <!-- Modal toggle -->
-                    <Link :href="'/fine/' + fine.id + '/pay'" type="button" as="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Pay</Link>
+                    <Link v-if="!fine.status" :href="'/fine/' + fine.id + '/pay?ref=' + this.transaction_ref" type="button" as="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Pay</Link>
                 </td>
             </tr>
 
@@ -56,7 +65,8 @@ export default {
     components: {Link},
     props: {
         member: Object,
-        fines: Object
+        fines: Object,
+        transaction_ref: String
     },
 }
 </script>
