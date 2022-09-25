@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth', 'admin']], function() {
     Route::get('/guarantor/{loan}/add', [GuarantorController::class, 'create']);
     Route::post('/guarantor/{loan}/register', [GuarantorController::class, 'store']);
     Route::get('/account/{account}/addtransaction', [AccountController::class, 'create']);
+    Route::delete('/account/{payment}/deletetransaction', [PaymentController::class, 'destroy']);
     Route::post('/account/{account}/savetransaction', [AccountController::class, 'store']);
     Route::get('/account/{user}/view-account', [AccountController::class, 'show']);
     Route::post('/account/{account}/set-interest', [AccountInterestController::class, 'store']);

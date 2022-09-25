@@ -53,7 +53,7 @@ class User extends Authenticatable
         static::created(function ($member) {
             $member->update(['account_number' => self::generateAccountNumber()]);
 
-            $member->account()->create(['interest' => 5]);
+            $member->account()->create(['interest' => 0]);
         });
     }
 

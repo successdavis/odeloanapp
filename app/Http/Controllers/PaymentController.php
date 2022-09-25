@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Resources\LoanResource;
 use App\Models\Loan;
 use App\Models\Payment;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PaymentController extends Controller
 {
+    use SoftDeletes;
+
     /**
      * Display a listing of the resource.
      *
@@ -41,12 +44,17 @@ class PaymentController extends Controller
      */
     public function store(Loan $loan, Request $request)
     {
+        request()->validate([
+            'payment_method' => 'required',
+            'transaction_ref' => 'required|unique:payments'
+        ]);
+
         if ($loan->status !== 1) {
             return response('loan not yet approved', 403);
         }
 
         $loan->addPayment($request->all());
-        return redirect('/loans/view_loan_details/' . $loan->id);
+//        return redirect('/loans/view_loan_details/' . $loan->id);
     }
 
     /**
@@ -87,10 +95,16 @@ class PaymentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Payment $payment)
     {
-        //
+        if(auth()->user()->account_number === '1000001003'){
+            $payment->delete();
+            return redirect()->back();
+        }
+
+        abort(401, 'Action Unauthorized');
+
     }
 }

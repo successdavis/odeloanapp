@@ -7,11 +7,15 @@ use App\Models\Account;
 use App\Models\Member;
 use App\Models\Payment;
 use App\Models\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AccountController extends Controller
 {
+
+        use SoftDeletes;
+
     /**
      * Display a listing of the resource.
      *
@@ -102,10 +106,10 @@ class AccountController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Account  $account
-     * @return \Illuminate\Http\Response
+     * @return bool
      */
     public function destroy(Account $account)
     {
-        //
+//        return $account->delete();
     }
 }

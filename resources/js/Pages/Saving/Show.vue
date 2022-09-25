@@ -92,7 +92,7 @@
                         {{ payment.amount }}
                     </td>
                     <td class="py-4 px-6 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+                        <Link method="delete" :href="`/account/${payment.id}/deletetransaction`" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</Link>
                     </td>
                 </tr>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
