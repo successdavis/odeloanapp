@@ -34,7 +34,7 @@
                 <div class="relative z-0 mb-6 w-full group">
                     <label for="title" class="sr-only">title select</label>
                     <select v-model="form.title" id="title" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                        <option selected>Choose a title</option>
+                        <option selected value=" ">Choose a title</option>
                         <option value="Mr">Mr.</option>
                         <option value="Mrs">Mrs.</option>
                         <option value="Miss">Miss.</option>
@@ -54,21 +54,29 @@
 
             <div class="grid md:grid-cols-3 md:gap-6">
                 <div class="relative z-0 mb-6 w-full group">
-                    <input v-model="form.country" type="text" name="Country" id="Country" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
-                    <label for="Country" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Country</label>
+                    <select v-model="form.country" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        <option value=" ">Choose a country</option>
+                        <option v-for="country in countries" :value="country">{{ country }}</option>
+                    </select>
                     <p v-if="form.errors.country" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.country }}.</p>
-
                 </div>
+
                 <div class="relative z-0 mb-6 w-full group">
-                    <input v-model="form.state" type="text" name="state" id="state" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
-                    <label for="state" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">State</label>
+                    <select v-model="form.state" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        <option value=" ">Choose a State</option>
+                        <option v-for="(state, index) in states" :key="index" :value="state.state.name">{{ state.state.name }}</option>
+                    </select>
                     <p v-if="form.errors.state" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.state }}.</p>
                 </div>
+
                 <div class="relative z-0 mb-6 w-full group">
-                    <input v-model="form.lga" type="text" name="lga" id="lga" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="">
-                    <label for="lga" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Local Government</label>
+                    <select v-model="form.lga" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                        <option value=" ">Choose a Local Government</option>
+                        <option v-for="(lga, index) in lgas[0]" :key="index" >{{ lga.name }}</option>
+                    </select>
                     <p v-if="form.errors.lga" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.lga }}.</p>
                 </div>
+
             </div>
 
             <div class="grid md:grid-cols-2 md:gap-6">
@@ -152,6 +160,8 @@ import {watch, ref} from "vue";
 import { Inertia } from '@inertiajs/inertia';
 import debounce from "lodash/throttle";
 import MemberSearch from "@/Components/MemberSearch.vue";
+import states from '@/json/States.json'
+
 
 export default {
     props: {user: Object},
@@ -159,6 +169,8 @@ export default {
     data () {
         return {
             sponsorsearch: '',
+            states: states,
+            countries: ['Nigeria','Ghana','Cameroon']
         }
     },
 
@@ -166,11 +178,11 @@ export default {
         const form = useForm({
             name: props.user ? props.user.name : '',
             email: props.user ? props.user.email : '',
-            country: props.user ? props.user.country : '',
-            state: props.user ? props.user.state : '',
-            lga: props.user ? props.user.lga : '',
+            country: props.user ? props.user.country : 'Nigeria',
+            state: props.user ? props.user.state : 'Benue State',
+            lga: props.user ? props.user.lga : ' ',
             gender: props.user ? props.user.gender : '',
-            title: props.user ? props.user.title : 'Choose a title',
+            title: props.user ? props.user.title : ' ',
             mobile: props.user ? props.user.mobile : '',
             business_name: props.user ? props.user.business_name : '',
             dob: props.user ? props.user.dob : '',
@@ -184,6 +196,18 @@ export default {
             password_confirmation: null,
         })
         return {form}
+    },
+
+    computed: {
+      lgas() {
+          let local = this.states.filter((s) => {
+              return s.state.name === this.form.state
+          })
+
+          return local.map((local) => {
+              return local.state.locals;
+          })
+      }
     },
 
     methods: {

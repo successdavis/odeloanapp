@@ -60,6 +60,9 @@ class MemberController extends Controller
             'mobile' => 'required|min:11',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'sponsorid' => 'required',
+            'lga' => 'required',
+            'state' => 'required',
+            'country' => 'required',
 
         ]);
 
