@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
+use App\Models\User;
 use App\Models\Nextofkin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -25,7 +25,7 @@ class NextofkinController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function create(Member $member)
+    public function create(User $member)
     {
         return Inertia::render('NextofKin/Create', ['member' => $member]);
     }
@@ -53,14 +53,14 @@ class NextofkinController extends Controller
         $nextofkin->address = $request->address;
         $nextofkin->mobile = $request->mobile;
         $nextofkin->gender = $request->gender;
-        $nextofkin->member_id = $request->member_id;
+        $nextofkin->user_id = $request->member_id;
         $nextofkin->email = $request->email;
 
         $nextofkin->save();
 
 
 //        return Redirect::back()->with('success', 'Next of Kin Added');
-            return redirect('/members/' . $nextofkin->fresh()->member->id ,302);
+            return redirect('/members/' . $request->member_id ,302);
 
     }
 

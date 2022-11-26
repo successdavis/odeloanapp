@@ -130,6 +130,9 @@ class MemberController extends Controller
             'r_address' => 'required',
             'email' => 'nullable|string|email|max:255|unique:members',
             'mobile' => 'required|min:11',
+                'lga' => 'required',
+            'state' => 'required',
+            'country' => 'required',
         ]);
 
         $this->saveMember($request, $member);
@@ -141,11 +144,16 @@ class MemberController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Member  $member
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(Member $member)
+    public function destroy(User $user)
     {
-        //
+//        if (auth()->user()->account_number !== '1000001003') {
+//            return redirect()->back();
+//        }
+        $user->delete();
+
+        return redirect('/members');
     }
 
     /**

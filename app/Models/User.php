@@ -43,6 +43,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'dob'   => 'date:Y-m-d'
     ];
 
     //    ->account()->create(['interest' => 5]);

@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth', 'admin']], function() {
     Route::post('/members/register', [MemberController::class, 'store']);
     Route::get('/member/{user}/update', [UserController::class, 'edit']);
     Route::patch('/member/{member}/update', [MemberController::class, 'update']);
+    Route::delete('/member/{user}/delete', [MemberController::class, 'destroy']);
 
     Route::post('/memberpassport/{member}/avatar', [AvatarController::class, 'store']);
 
