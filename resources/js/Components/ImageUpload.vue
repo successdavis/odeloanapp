@@ -26,7 +26,7 @@ export default {
             };
 
             // Persis to the server
-            this.persist(avatar);
+            // this.persist(file);
         }
     }
 }

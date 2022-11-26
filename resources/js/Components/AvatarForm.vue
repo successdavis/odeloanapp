@@ -32,6 +32,7 @@ export default {
 
     methods: {
         onLoad(avatar) {
+            console.log(avatar)
             this.avatar = avatar.src;
 
             this.persist(avatar.file);
