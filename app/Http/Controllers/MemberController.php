@@ -30,6 +30,7 @@ class MemberController extends Controller
                 $query->where('name', 'like', '%' . $search . '%');
                 $query->orWhere('account_number', 'like', '%' . $search . '%');
             })
+            ->orderBY('serial_no', 'asc')
             ->paginate(50);
 
         return Inertia::render('Member/Index', ['members' => $members]);
