@@ -14,10 +14,15 @@
                 <label for="underline_select" class="sr-only">Purpose</label>
                 <select  v-model="form.name" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                     <option selected="">Choose Fine</option>
-                    <option value="Long Term Loan Saving Fine">Absent From Meeting</option>
-                    <option value="Short Term Loan Saving Fine">Late Coming to Meeting</option>
-                    <option value="Short Term Loan Saving Fine">Noise</option>
-                    <option value="Short Term Loan Saving Fine">Quarrel or Fight</option>
+                    <option>Long Term Loan Default Fine</option>
+                    <option>Short Term Loan Default Fine</option>
+                    <option>SFFLTL </option>
+                    <option>SFFSTL </option>
+                    <option>Absent From Meeting</option>
+                    <option>Late Coming to Meeting</option>
+                    <option>Noise</option>
+                    <option>Quarrel or Fight</option>
+                    <option>Others</option>
                 </select>
                 <p v-if="form.errors.name" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ form.errors.name }}.</p>
 

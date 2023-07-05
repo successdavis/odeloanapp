@@ -1,23 +1,49 @@
-<script setup>
-import { ref } from 'vue';
-import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Navbar from '@/Components/Navbar.vue';
-import Sidebar from '@/Components/Sidebar.vue';
-import BreezeDropdown from '@/Components/Dropdown.vue';
-import BreezeDropdownLink from '@/Components/DropdownLink.vue';
-import BreezeNavLink from '@/Components/NavLink.vue';
-import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/inertia-vue3';
+<script>
+import Sidebar from "@/Components/Sidebar.vue";
+import treasurer_sidebar from "@/Layouts/Partials/Treasurer_Sidebar.vue";
+import cs_sidebar from "@/Layouts/Partials/Cs_Sidebar.vue";
+import secretary from "@/Layouts/Partials/Secretary_Sidebar.vue";
 
-const showingNavigationDropdown = ref(false);
+export default {
+    components: {
+        treasurer_sidebar,
+        Sidebar,
+        secretary,
+        cs_sidebar
+    },
+
+    data() {
+        return {
+            userRole: this.$page.props.auth.role[0]
+        }
+    },
+    computed: {
+        componentToRender() {
+            switch (this.userRole) {
+                case 'cs_agent':
+                    return 'cs_sidebar';
+                case 'secretary':
+                    return 'secretary';
+                case 'treasurer':
+                    return 'treasurer';
+                case 'chairman':
+                    return 'chairman';
+                case 'director':
+                    return 'sidebar';
+                default:
+                    return 'GuestComponent'; // fallback component if role is not recognized
+            }
+        }
+    }
+}
 </script>
 
 <template>
-    <Navbar></Navbar>
-
+<!--    <navbar></navbar>-->
     <div class="flex">
-        <div class="w-72 overflow-y-scroll hidden md:block" aria-label="Sidebar">
-            <Sidebar></Sidebar>
+        <div class="w-80 hidden md:block" aria-label="Sidebar">
+<!--            <Sidebar></Sidebar>-->
+            <component :is="componentToRender"></component>
         </div>
         <div class="py-4 px-3 w-full overflow-y-scroll">
             <slot />

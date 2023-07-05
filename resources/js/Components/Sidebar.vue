@@ -2,13 +2,27 @@
 
     <aside >
         <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
-            <ul class="space-y-2">
-                <li>
+            <div>
+                <div class="flex justify-center mb-2">
+                    <div class="text-center">
+                        <img class="w-24 h-24 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" :src="$page.props.auth.user.avatar_path" alt="Bordered avatar">
+                        <p>{{$page.props.auth.user.name}}</p>
+                        <p class="font-bold">{{$page.props.auth.role[0]}}</p>
+                    </div>
+                </div>
+                <div class="inline-flex items-center justify-center w-full">
+                    <hr class="w-64 h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
+                </div>
+            </div>
+            <ul class="">
+                <li class="">
                     <Link href="/home" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
-                        <span class="ml-3">Dashboard</span>
+                        <span class="ml-3">Home</span>
                     </Link>
                 </li>
+
+
 
                 <li>
                     <button type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
@@ -24,6 +38,9 @@
                         </li>
                         <li>
                             <Link href="/members/register" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Register Member</Link>
+                        </li>
+                        <li>
+                            <Link href="/members/staffs" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">My Staffs</Link>
                         </li>
                         <!--                  <li>-->
                         <!--                     <a href="" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>-->
@@ -41,19 +58,25 @@
                     <!--              Add hidden to class to hide sub menu-->
                     <ul id="dropdown-example" class=" py-2 space-y-2">
                         <li>
-                            <Link href="/loans/create" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Loan Application</Link>
+                            <Link href="/loans/create" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">Loan Application</Link>
                         </li>
                         <li>
-                            <Link href="/loans/view_loans" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">View All Loans</Link>
+                            <Link href="/loans/view_loans" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">View All Loans</Link>
                         </li>
                         <li>
-                            <Link href="/loans/pending_loans" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Pending Loans</Link>
+                            <Link href="/loans/pending_loans" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">Pending Loans</Link>
                         </li>
                         <li>
-                            <Link href="/loans/view-long-term" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Long Term Loan</Link>
+                            <Link href="/loans/view-long-term" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">Long Term Loan</Link>
                         </li>
                         <li>
-                            <Link href="/loans/short-long-term" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Short Term Loan</Link>
+                            <Link href="/loans/short-long-term" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">Short Term Loan</Link>
+                        </li>
+                        <li>
+                            <Link href="/loans/yet-to-pay" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">Yet To Pay</Link>
+                        </li>
+                        <li>
+                            <Link href="/loans/list-of-unpaid" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">List of Unpaid</Link>
                         </li>
                         <!--                  <li>-->
                         <!--                     <a href="" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>-->
@@ -80,7 +103,7 @@
                 </li>
                 <li>
                     <Link href="/fines" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-<!--                        <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>-->
+                        <!--                        <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>-->
                         <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         <span class="flex-1 ml-3 whitespace-nowrap">Fine</span>
                     </Link>

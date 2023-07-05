@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as r}from"./app.5c564227.js";const a={},o={class:"font-extrabold bg-red-600 py-4 px-4 text-white text-center uppercase"};function c(s,n){return t(),r("p",o,"Members that are Yet to Pay Today's ")}var p=e(a,[["render",c]]);export{p as default};

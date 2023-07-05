@@ -2,7 +2,9 @@
     <div class="px-3">
         <h2 class="md:text-3xl mb-3 text-xl font-bold text-center">{{$page.props.auth.user.name}} - {{$page.props.auth.user.account_number}}</h2>
 
-        <user-cards :nextpaymentdue="nextpaymentdue" :nextpayment="nextpayment" :borrowedfunds="borrowedfunds" :savingsbalance="savingsbalance"></user-cards>
+        <user-cards :member="member" :nextpaymentdue="nextpaymentdue" :nextpayment="nextpayment" :borrowedfunds="borrowedfunds" :savingsbalance="savingsbalance"></user-cards>
+
+
     </div>
 </template>
 

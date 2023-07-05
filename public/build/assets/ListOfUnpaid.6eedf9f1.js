@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as o}from"./app.5c564227.js";const s={},a={class:"font-extrabold bg-red-600 py-4 px-4 text-white text-center uppercase"};function r(n,c,p,_,d,i){return t(),o("p",a,"Members with Loan default outstanding ")}var l=e(s,[["render",r]]);export{l as default};

@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 class MemberController extends Controller
 {
@@ -94,15 +95,19 @@ class MemberController extends Controller
             $nextpayment = $lastloan->getLongTermNextPayment();
         }
 
+        $roles = Role::all();
+
         $savingsbalance = number_format($member->account->totalSavingBalance());
         return Inertia::render('Member/Show', [
-            'member' => $member,
-            'borrowedfunds' => $borrowedfunds,
-            'lastloan' => $lastloan,
-            'nextloanpayment' => $lastloan,
-            'savingsbalance' => $savingsbalance,
-            'nextpayment' => number_format($nextpayment),
-            'nextpaymentdue' => $nextpaymentdue,
+            'member'            => $member,
+            'borrowedfunds'     => $borrowedfunds,
+            'lastloan'          => $lastloan,
+            'nextloanpayment'   => $lastloan,
+            'savingsbalance'    => $savingsbalance,
+            'nextpayment'       => number_format($nextpayment),
+            'nextpaymentdue'    => $nextpaymentdue,
+            'roles'             => $roles,
+            'user_role'         => $member->getRoleNames()
         ]);
     }
 

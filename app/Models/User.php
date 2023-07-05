@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -60,7 +61,7 @@ class User extends Authenticatable
 
     public function payments()
     {
-        $this->hasMany(Payment::class);
+        return $this->hasMany(Payment::class);
     }
 
     public function nextofkin()
@@ -122,4 +123,59 @@ class User extends Authenticatable
 
         return $newAccountNumber;
     }
+
+    public function todaySavingsCollection($date)
+    {
+        $today = $date ? $date : Carbon::today();
+
+        return $this->payments()
+            ->whereDate('created_at', $today)
+            ->where('billable_type', Account::class)
+            ->sum('amount');
+    }
+
+    public function todayLongTermLoanCollection($date)
+    {
+        $today = $date ? $date : Carbon::today();
+
+         $lCategoryId = 2;
+        return $this->payments()->whereDate('created_at', $today)
+            ->where('billable_type', Loan::class)
+            ->whereHasMorph('billable', Loan::class, function ($query) use ($lCategoryId) {
+                $query->where('loancategory_id', $lCategoryId);
+            })
+            ->sum('amount');
+    }
+
+    public function todayShortTermLoanCollection($date)
+    {
+        $today = $date ? $date : Carbon::today();
+
+        $lCategoryId = 1;
+        return $this->payments()->whereDate('created_at', $today)
+            ->where('billable_type', Loan::class)
+            ->whereHasMorph('billable', Loan::class, function ($query) use ($lCategoryId) {
+                $query->where('loancategory_id', $lCategoryId);
+            })
+            ->sum('amount');
+    }
+
+    public function todayTotalFinesCollection($date)
+    {
+        $today = $date ? $date : Carbon::today();
+
+        return $this->payments()->whereDate('created_at', $today)
+            ->where('billable_type', Fine::class)
+            ->sum('amount');
+    }
+
+    public function todayGrandTotalCollection($date)
+    {
+        $today = $date ? $date : Carbon::today();
+
+        return $this->payments()->whereDate('created_at', $today)
+            ->sum('amount');
+    }
+
+
 }

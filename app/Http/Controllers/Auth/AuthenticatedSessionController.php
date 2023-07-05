@@ -37,6 +37,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = auth()->user()->load('roles');
+
+        $roles =  $user->roles->pluck('name')->toArray();
+
+
+        $request->session()->put('role', $roles);
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
